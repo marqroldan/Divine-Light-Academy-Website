@@ -1,0 +1,11 @@
+$font-weight--Bold: 700 !default;
+$font-weight--SemiBold: 600 !default;
+$font-weight--Medium: 500 !default;
+$font-weight--Regular: 400 !default;
+
+@font-face {
+    font-family: 'Monotype Corsiva';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Monotype Corsiva Regular'), url('MTCORSVA.woff') format('woff');
+    }

@@ -1,3 +1,256 @@
+@import 'defaults';
+
+:root {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    background-color: #e08f62;
+    background-image: url('bg_gradient.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: $font-weight--Regular;
+}
+
+header, section {
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    z-index: 101;
+}
+
+$navPadding: 52px;
+
+.nav {
+    background: rgba(255,0,0,0);
+    width: 100%;
+
+    &--forScroll {
+        display: none;
+        position: fixed;
+        top: 0;
+        z-index: 99;
+    }
+
+    &--forHeader {
+        position: absolute;
+        padding: $navPadding 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        width: 90vw;
+    }
+
+    &__link {
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: $font-weight--SemiBold;
+        font-size: 14px;
+        margin: auto;
+    }
+}
+
+
+.header {
+    min-height: 700px;
+    background-color: none;
+    &__body {
+        padding: calc(#{$navPadding} * 2) 0;
+        min-height: 700px;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+    }
+    &__subSection {
+        max-width: 250px;
+
+        * {
+            color: #fff;
+        }
+
+        &Title {
+            display: block;
+            font-weight: $font-weight--Regular;
+            font-size: 11px;
+            text-decoration: none;
+            text-transform: uppercase;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    &__social {
+        position: absolute;
+        left: 22px;
+        bottom: 22px;
+        color: #fff;
+
+        &Link {
+            opacity: 0.8;
+            font-size: 35px;
+            margin: 0 5px;
+
+            &:hover{
+                opacity: 1;
+            }
+        }
+    }
+
+    &__quickAnnouncements {
+        position: absolute;
+        text-align: right;
+        right: 22px;
+        bottom: 22px;
+
+        &Text {
+            font-size: 14px;
+        }
+    }
+}
+
+.school {
+    color: #fff;
     
+    & * {
+        flex-shrink: 0;
+    }
+
+    &__logo {
+        background: url('logo.png') no-repeat center;
+        background-size: cover;
+        width: 130px;
+        height: 130px;
+    }
+    &__name {
+        font-family: 'Monotype Corsiva';
+        font-size: 92px;
+        text-shadow: 0 2px 0 rgba(134, 57, 11, 0.5);
+    }
+    &__slogan {
+        font-weight: $font-weight--Medium;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: -5px;
+    }
+
+    &__campus {
+        margin: 25px 0;
+
+        .btn--campus:first-child {
+            margin-right: 13px;
+        }
+    }
+
+    &__cta {
+        margin-top: 50px;
+    }
+}
+
+.btn {
+    display: inline-block;
+    border-radius: 15px;
+    padding: 9px 20px 8px 20px;
+    font-size: 16px;
+    font-weight: $font-weight--Bold;
+    text-align: center;
+    text-decoration: none; 
+    text-transform: uppercase;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,rgba(0,0,0,0.1) 100%);
+    color: #956500;
+
+    &:hover {
+        box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    }
+
+    &--campus {
+        min-width: 250px;
+    }
+
+    &--white {
+        background: #fff;
+        color: #956500;
+    }
+
+    &--burntOrange {
+        background-color: #b72900;
+        color: #fff;
+    }
+
+    &--cta {
+        padding-top: 1px;
+        padding-bottom: 0px;
+        min-height: 47px;
+        min-width: 345px;
+        line-height: 47px;
+
+        &:hover {
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+    }
+}
+
+.mainBG {
+    -webkit-backface-visibility: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    z-index: 100;
+
+    &__layer {
+        background-position: center center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+
+        width: 100%;
+        height: 100vh;
+        position: relative;
+
+        &--grids {
+            background-color: rgba(113,58,10,0.12);
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 100%), url('grids.png');
+            background-repeat: repeat-x, repeat;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            mix-blend-mode: overlay;
+        }
+        &--image {
+            background-image: url('../images/1.jpg');
+            background-size: cover;
+            z-index: 98;
+            opacity: 0.3;
+            mix-blend-mode: overlay;
+            margin-bottom: -100vh;
+        }
+
+        &--gradient {
+            background-image: url('bg_gradient.jpg');
+            background-size: 100% 100%;
+        }
+    }
 }

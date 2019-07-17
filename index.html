@@ -7,20 +7,17 @@
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main.css" media="screen" />
     <script type='text/javascript' src="js/main.js"></script>
 </head>
 <body>
-    <nav class="nav nav--forScroll">
-        Navigation
-    </nav>
     <section class="mainBG">
         <div class="mainBG__layer mainBG__layer--grids"></div>
         <div class="mainBG__layer mainBG__layer--image"></div>
         <div class="mainBG__layer mainBG__layer--gradient"></div>
     </section>
     <main>
-        <header class="header">
+        <header class="header height limit1920">
             <nav class="nav nav--forHeader">
                     <a href="#" class="nav__link"><span>Home</span></a>
                     <a href="#" class="nav__link"><span>Why choose us?</span></a>
@@ -28,9 +25,9 @@
                     <a href="#" class="nav__link"><span>School Calendar</span></a>
                     <a href="#" class="nav__link"><span>Admissions</span></a>
                     <a href="#" class="nav__link"><span>Achievements</span></a>
-                    <a href="#" class="nav__link"><span>Contact Us</span></a>
+                    <a href="#contact" class="nav__link"><span>Contact Us</span></a>
             </nav>
-            <div class="header__body school">
+            <div class="header__body school height">
                 <div class="school__logo"></div>
                 <div class="school__name">Divine Light Academy</div>
                 <div class="school__slogan">Towards academic excellence and value formation</div>
@@ -55,109 +52,276 @@
             </div>
         </header>
         <section>
+            <nav class="nav nav--forScroll">
+                Navigation
+            </nav>
+            <section id="info" class="section info height limit1920">
+                <nav class="nav nav--forTabs">
+                        <a href="#" class="nav__link nav__link--forTabs nav__link--forTabs--active">Why</a>
+                        <a href="#" class="nav__link nav__link--forTabs">Vision</a>
+                        <a href="#" class="nav__link nav__link--forTabs">Mission</a>
+                        <a href="#" class="nav__link nav__link--forTabs">History</a>
+                </nav>
+                <article class="sectionContainer">
+                        <div class="sectionContainer__left">
+                                <div class="sectionContainer__subHeading">Why Choose</div>
+                                <div class="sectionContainer__heading">Divine Light Academy?</div>
+                                <div class="sectionContainer__paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac pretium erat. Nunc mollis viverra odio. Ut id efficitur urna. Donec sapien nunc, tincidunt non imperdiet vitae, dapibus ac elit. Etiam quis nibh nec orci suscipit mattis. Integer pretium mi massa, a vestibulum lorem sagittis eget. Donec nisl neque, congue tincidunt nisl eu, vestibulum vestibulum augue. Phasellus laoreet lorem et pulvinar varius. Phasellus malesuada feugiat dapibus. Maecenas tristique auctor enim, quis commodo quam maximus ac. Donec ornare ipsum at turpis scelerisque, vitae malesuada ante pharetra. Donec pretium, diam vel imperdiet finibus, sapien massa venenatis dui, in pellentesque enim tortor id lorem.</div>
+                        </div>
+                        <div class="sectionContainer__right">
+                            <div class="sectionContainer__programs">
+                                <div class="boxContainer sectionContainer__programsItem sectionContainer__programsItem--active">
+                                    <div class="sectionContainer__programsImage"></div>
+                                    <div class="sectionContainer__programsDetails">
+                                        <div class="sectionContainer__programsTitle">Christian Living and Values Education</div>
+                                        <div class="sectionContainer__programsInfo">The school offers an on-going Christian Living and Values Education subject that would teach students some facts and knowledge on the Catholic teaching and values that should be internalized to become a true Child of Light.  Aside from this, Values education is also integrated in the different subject areas to develop the students’ good moral and Filipino values necessary for serving God, the family, community and the country.<br><br>Activities such as growth sessions, encounters and the like are scheduled throughout the school year to help the students in their personal formation.</div>
+                                    </div>
+                                </div>
+                                <div class="boxContainer sectionContainer__programsItem">
+                                    <div class="sectionContainer__programsImage"></div>
+                                    <div class="sectionContainer__programsDetails">
+                                        <div class="sectionContainer__programsTitle">Homeroom & Character Formation Program</div>
+                                        <div class="sectionContainer__programsInfo">The school offers an on-going Christian Living and Values Education subject that would teach students some facts and knowledge on the Catholic teaching and values that should be internalized to become a true Child of Light.  Aside from this, Values education is also integrated in the different subject areas to develop the students’ good moral and Filipino values necessary for serving God, the family, community and the country.<br><br>Activities such as growth sessions, encounters and the like are scheduled throughout the school year to help the students in their personal formation.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sectionContainer__programsNavigation">
+                                dots
+                            </div>
+                        </div>
+                </article>
+            </section>
+            <section id="news" class="section info height limit1920">
+                <article class="sectionContainer sectionContainer--noTabs">
+                        <div class="sectionContainer__left sectionContainer__left--alignTop">
+                            <div class="news flex">
+                                <article class="boxContainer newsContainer sectionContainer--sticky news__content">
+                                </article>
+                            </div>
+                        </div>
+                        <div class="sectionContainer__right sectionContainer__right--alignTop">
+                            <div class="sectionContainer--sticky newsContainer">
+                                    <div class="sectionContainer__subHeading">Announcements &</div>
+                                    <div class="sectionContainer__heading">Latest News</div>
+                                    <div class="news">
+                                        <div class="news__item">
+                                            <div class="news__itemDateContainer">
+                                                <div class="news__itemDateMonth">DEC</div>
+                                                <div class="news__itemDateDay">31</div>
+                                                <div class="news__itemDateYear">2019</div>
+                                            </div>
+                                            <div class="news__itemTitle">
+                                                    13th Annual OlymPHYSICS Challenge 2019, TIP - Manila
+                                                <div class="news__itemCategories">
+                                                    <div class="news__itemCategory">Bacoor</div>
+                                                    <div class="news__itemCategory">Twitter</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="news__item">
+                                            <div class="news__itemDateContainer">
+                                                <div class="news__itemDateMonth">DEC</div>
+                                                <div class="news__itemDateDay">31</div>
+                                                <div class="news__itemDateYear">2019</div>
+                                            </div>
+                                            <div class="news__itemTitle">
+                                                    13th Annual OlymPHYSICS Challenge 2019, TIP - Manila
+                                                <div class="news__itemCategories">
+                                                    <div class="news__itemCategory">Bacoor</div>
+                                                    <div class="news__itemCategory">Twitter</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="news__item">
+                                            <div class="news__itemDateContainer">
+                                                <div class="news__itemDateMonth">DEC</div>
+                                                <div class="news__itemDateDay">31</div>
+                                                <div class="news__itemDateYear">2019</div>
+                                            </div>
+                                            <div class="news__itemTitle">
+                                                    13th Annual OlymPHYSICS Challenge 2019, TIP - Manila
+                                                <div class="news__itemCategories">
+                                                    <div class="news__itemCategory">Bacoor</div>
+                                                    <div class="news__itemCategory">Twitter</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="news__item">
+                                            <div class="news__itemDateContainer">
+                                                <div class="news__itemDateMonth">DEC</div>
+                                                <div class="news__itemDateDay">31</div>
+                                                <div class="news__itemDateYear">2019</div>
+                                            </div>
+                                            <div class="news__itemTitle">
+                                                    13th Annual OlymPHYSICS Challenge 2019, TIP - Manila
+                                                <div class="news__itemCategories">
+                                                    <div class="news__itemCategory">Bacoor</div>
+                                                    <div class="news__itemCategory">Twitter</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="news__item">
+                                            <div class="news__itemDateContainer">
+                                                <div class="news__itemDateMonth">DEC</div>
+                                                <div class="news__itemDateDay">31</div>
+                                                <div class="news__itemDateYear">2019</div>
+                                            </div>
+                                            <div class="news__itemTitle">
+                                                    13th Annual OlymPHYSICS Challenge 2019, TIP - Manila
+                                                <div class="news__itemCategories">
+                                                    <div class="news__itemCategory">Bacoor</div>
+                                                    <div class="news__itemCategory">Twitter</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                </article>
+            </section>
+            <section id="schedule" class="section info schedule height limit1920 sectionContainer--noTabs">
+                <div class="sectionHeader">
+                    <div class="sectionContainer__subHeading">Upcoming Events</div>
+                    <div class="sectionContainer__heading">School Calendar</div>
+                </div>
+                <article class="sectionContainer scheduleContainer">
+                        <div class="sectionContainer__left scheduleContainer__left sectionContainer__left--alignLeft">
+                            <div class="schedule__campusTitle">
+                                    Las Piñas
+                            </div>
+                            <div class="boxContainer schedule__box">
+                                    <div class="schedule__dateBackground"></div>
+                                    <div class="schedule__itemContainer">
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="sectionContainer__right">
+                                <div class="schedule__campusTitle">
+                                        Bacoor
+                                </div>
+                                <div class="boxContainer schedule__box">
+                                    <div class="schedule__dateBackground"></div>
+                                    <div class="schedule__itemContainer">
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                            <div class="schedule__item">
+                                                <div class="schedule__itemDate">September 8, 2019<br>08:00 - 10:00</div>
+                                                <div class="schedule__itemTitle">Aloha madafaka</div>
+                                            </div>
+                                    </div>
+                                </div>
+                        </div>
+                </article>
+            </section>
             
-            Testy2
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <section id="contact" class="section info contact limit1920 sectionContainer--noTabs">
+                <div class="sectionHeader sectionHeader--alignRight">
+                    <div class="sectionContainer__subHeading">Get in touch</div>
+                    <div class="sectionContainer__heading">Contact Us</div>
+                </div>
+                <article class="sectionContainer contactContainer">
+                        <div class="sectionContainer__left sectionContainer__left--alignTop contactContainer__left contact__mapContainer">
+                                <article class="boxContainer contact__map">
+                                </article>
+                        </div>
+                        <div class="sectionContainer__right sectionContainer__right--alignTop contactContainer__right">
+                            <article class="boxContainer contact__info">
+                                <div class="contact__infoItem">
+                                    <div class="contact__infoName">
+                                        LAS PIÑAS
+                                    </div>
+                                    dla_laspinas@yahoo.com<br><br>
+                                    7 Rosal Street Doña Manuela Subdivision<br>Las Piñas City 1740 Philippines
+                                    <div class="flex">
+                                        <div class="flex--flexGrow-1">
+                                            <div class="contact__infoName contact__infoName--groupNamePadding contact__infoName--Smaller">
+                                                Trunk Lines
+                                            </div>
+                                            (63 2) 875-1344<br>(63 2) 873-5024<br>(63 2) 871-8158<br>(63 2) 872-9053
+                                        </div>
+                                        <div class="flex--flexGrow-1">
+                                                <div class="contact__infoName contact__infoName--groupNamePadding contact__infoName--Smaller">
+                                                    Admissions Office
+                                                </div>
+                                                Local 131<br>
+                                                dlalp_admissions@yahoo.com
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact__infoItem">
+                                    <div class="contact__infoName">
+                                        Bacoor
+                                    </div>
+                                    dlacavite@yahoo.com<br><br>
+                                    Alicante St. Town and Country West Molino 3<br>Bacoor City Cavite 4102 Philippines
+                                    <div class="flex">
+                                        <div class="flex--flexGrow-1">
+                                            <div class="contact__infoName contact__infoName--groupNamePadding contact__infoName--Smaller">
+                                                Trunk Lines
+                                            </div>
+                                            (63 46) 517-4321 <strong>to</strong> 22<br>(63 46) 517-1044<br>(63 46) 489-08-46
+                                        </div>
+                                        <div class="flex--flexGrow-1">
+                                                <div class="contact__infoName contact__infoName--groupNamePadding contact__infoName--Smaller">
+                                                    Admissions Office
+                                                </div>
+                                                Local 301 / 302<br>
+                                                dlacavite_admissions@yahoo.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                </article>
+            </section>
         </section>
     </main>
+    <footer class="footer">
+        <section class="section">
+                <nav class="nav">
+                        <a href="#" class="nav__link"><span>Home</span></a>
+                        <a href="#" class="nav__link"><span>Why choose us?</span></a>
+                        <a href="#" class="nav__link"><span>Announcements</span></a>
+                        <a href="#" class="nav__link"><span>School Calendar</span></a>
+                        <a href="#" class="nav__link"><span>Admissions</span></a>
+                        <a href="#" class="nav__link"><span>Achievements</span></a>
+                        <a href="#contact" class="nav__link"><span>Contact Us</span></a>
+                </nav>
+        </section>
+    </footer>
 </body>
 </html>

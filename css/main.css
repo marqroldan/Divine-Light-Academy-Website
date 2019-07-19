@@ -44,6 +44,16 @@ header, section, footer {
 .nav {
   width: 100%;
 }
+.navSection {
+  position: relative;
+  z-index: 999;
+}
+.navSection__toggler {
+  display: none;
+}
+.navSection__buttons {
+  display: none;
+}
 .nav--forHeader {
   position: absolute;
   padding: 52px 0;
@@ -66,6 +76,7 @@ header, section, footer {
 .nav--forFooter {
   flex-wrap: wrap;
   display: flex;
+  align-items: center;
 }
 .nav--forFooter > * {
   flex-shrink: 0;
@@ -78,6 +89,7 @@ header, section, footer {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  position: fixed;
 }
 .navScroll .btn {
   max-height: 36px;
@@ -89,6 +101,9 @@ header, section, footer {
 }
 .navScroll__container {
   display: none;
+}
+.navScroll .navScroll__buttons {
+  display: block;
 }
 .nav__link {
   color: #fff;
@@ -149,14 +164,17 @@ header, section, footer {
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
   box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
   min-height: initial;
+  height: 100%;
   max-height: 50px;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 110;
 }
+.sectionForScroll .navScroll__toggler {
+  display: block !important;
+}
 .sectionForHeader {
   min-height: initial;
-  background: red;
   z-index: 109;
 }
 .sectionHeader {
@@ -271,6 +289,12 @@ header, section, footer {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
+.infoContainer {
+  display: none;
+}
+.infoContainer--active {
+  display: flex;
+}
 .infoContainer__programs {
   min-width: 550px;
   min-height: 451px;
@@ -668,6 +692,11 @@ header, section, footer {
   background-color: #b72900;
   color: #fff;
 }
+.btn--burntOrangeNoImage {
+  background-color: #b72900;
+  background-image: none;
+  color: #fff;
+}
 .btn--cta {
   padding-top: 1px;
   padding-bottom: 0px;
@@ -717,6 +746,11 @@ header, section, footer {
   background-size: 100% 100%;
 }
 
+.animation__fadeOut {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
 @media (max-height: 625px), (max-width: 400px) {
   .nav--forHeader {
     padding: 37px 0;
@@ -737,8 +771,44 @@ header, section, footer {
   }
 }
 @media (max-width: 1024px) {
-  .nav--forHeader {
+  .nav {
+    width: 100%;
+  }
+  .navSection {
+    background: #fff;
+    height: 50px;
+    max-width: 1920px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    position: fixed;
+  }
+  .navSectionContainer {
     display: none;
+  }
+  .navSection__toggler {
+    display: block;
+  }
+  .navSection__buttons {
+    display: block;
+  }
+
+  .header__subSection {
+    max-width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    left: initial;
+    right: initial;
+    bottom: initial;
+    top: initial;
+  }
+  .header__subSectionContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: -40px;
   }
 
   .section {
@@ -846,9 +916,6 @@ header, section, footer {
     text-align: left;
     width: 100%;
   }
-  .infoContainer__programsItem--active, .infoContainer__programsItem:hover {
-    opacity: 1;
-  }
   .infoContainer__programsItem--active:hover {
     width: 100%;
   }
@@ -892,8 +959,7 @@ header, section, footer {
     border-radius: 0 !important;
   }
   .contact__mapContainer {
-    width: 100vw;
-    margin-left: -2.5vw;
+    width: 100%;
     height: 200px;
   }
 }
@@ -929,13 +995,7 @@ header, section, footer {
     text-align: left;
     padding-left: 12px;
   }
-  .nav--forFooter {
-    flex-direction: column;
-  }
-  .navScroll .btn {
-    display: none;
-  }
-  .navScroll__container {
+  .navSection__buttons .btn {
     display: none;
   }
   .navScroll__enroll {
@@ -979,28 +1039,25 @@ header, section, footer {
   }
   .schedule__item {
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .schedule__itemDate {
     display: inline;
-    width: 0;
     max-width: none;
     min-width: 250px;
-    background: red;
     text-align: left;
     padding: 5px 5px 5px 15px;
     background: #fff;
     color: rgba(0, 0, 0, 0.8);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    margin-bottom: 5px;
   }
   .schedule__item:first-child .schedule__itemDate {
     border-top-right-radius: 0px;
     border-top-left-radius: 4px;
   }
   .schedule__itemTitle {
-    padding-top: 0;
+    padding-top: 5px;
   }
   .schedule__itemTime {
     margin-left: 10px;
@@ -1013,7 +1070,7 @@ header, section, footer {
 }
 @media (min-width: 1920px) {
   .navScroll__toggler {
-    display: none;
+    display: none !important;
   }
   .navScroll__container {
     display: block;
@@ -1027,6 +1084,14 @@ header, section, footer {
     width: 50%;
     max-width: 1920px;
     min-height: 500px;
+  }
+  .sectionForScroll .navScroll__toggler {
+    display: none !important;
+  }
+
+  .school__logo {
+    width: 250px;
+    height: 250px;
   }
 }
 @media (max-width: 400px) {
@@ -1046,22 +1111,6 @@ header, section, footer {
   .school__logo {
     width: 80vw;
     height: 80vw;
-  }
-
-  .header__subSection {
-    max-width: 100%;
-    padding: 10px 20px;
-    text-align: center;
-    position: relative;
-    left: initial;
-    right: initial;
-    bottom: initial;
-    top: initial;
-  }
-  .header__subSectionContainer {
-    display: flex;
-    flex-direction: column-reverse;
-    margin-top: -40px;
   }
 }
 

@@ -21,6 +21,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+   // scroll-behavior: smooth;
 }
 
 body {
@@ -50,6 +51,17 @@ $navHeight--forScroll: 50px;
 .nav {
     width: 100%;
     
+    &Section {
+        position: relative;
+        z-index: 999;
+        &__toggler {
+            display: none;
+        }
+        &__buttons {
+            display: none;
+        }
+    }
+
     &--forHeader {
         position: absolute;
         padding: $navPadding 0;
@@ -74,6 +86,7 @@ $navHeight--forScroll: 50px;
     &--forFooter {
         flex-wrap: wrap;
         display: flex;
+        align-items: center;
 
         & > * {
             flex-shrink: 0;
@@ -88,6 +101,7 @@ $navHeight--forScroll: 50px;
         justify-content: space-between;
         align-items: center;
         padding: 0 10px;
+        position: fixed;
 
         & .btn {
             max-height: 36px;
@@ -100,6 +114,10 @@ $navHeight--forScroll: 50px;
         }
         &__container {
             display: none;
+        }
+
+        & &__buttons {
+            display: block;
         }
     }
 
@@ -171,15 +189,19 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,rgba(0,0,0,0.05) 100%);
         box-shadow: 0 0 10px 5px rgba(255,255,255,0.3); //E3B337
         min-height: initial;
+        height: 100%;
         max-height: $navHeight--forScroll;
-        position: sticky;
+        position: fixed;
         top: 0;
         z-index: 110;
+
+        & .navScroll__toggler {
+            display: block !important;
+        }
     }
 
     &ForHeader {
         min-height: initial;
-        background: red;
         z-index: 109;
     }
 
@@ -327,6 +349,12 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
 .info {
     &Container {
+        display: none;
+
+        &--active {
+            display: flex;
+        }
+
         &__programs {
             min-width: $programItemFullWidth;
             min-height: $programItemMinHeight;
@@ -792,6 +820,12 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         color: #fff;
     }
 
+    &--burntOrangeNoImage {
+        background-color: #b72900;
+        background-image: none;
+        color: #fff;
+    }
+
     &--cta {
         padding-top: 1px;
         padding-bottom: 0px;
@@ -847,6 +881,13 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     }
 }
 
+.animation {
+    &__fadeOut {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+}
+
 // Media Queries
 @media (max-height: $breakpoint__height--Min), (max-width: $breakpoint__width--SmallUnfortunate) {
     .nav {
@@ -875,8 +916,50 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
 @media (max-width: $breakpoint__width--Small) {
     .nav {
-        &--forHeader {
-            display: none;
+        width: 100%;
+        
+        &Section {
+            background: #fff;
+            height: $navHeight--forScroll;
+            max-width: 1920px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            position: fixed;
+
+            &Container {
+                display: none;
+            }
+
+            &__toggler {
+                display: block;
+            }
+
+            &__buttons {
+                display: block;
+            }
+
+        }
+    }
+
+    .header {
+        &__subSection {
+            max-width: 100%;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+            left: initial;
+            right: initial;
+            bottom: initial;
+            top: initial;
+
+            &Container {
+                display: flex;
+                flex-direction: column-reverse;
+                margin-top: $sectionContainerPadding * -2;
+            }
         }
     }
 
@@ -1010,11 +1093,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
                     flex-shrink: 0;
                     text-align: left;
                     width: 100%;
-    
-                    &--active, &:hover {
-                        opacity: 1;
-                    }
-    
+
                     &--active {
                         &:hover {
                             width: 100%;
@@ -1072,8 +1151,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             border: 0 !important;
             border-radius: 0 !important;
             &Container {
-                width: 100vw;
-                margin-left: -2.5vw;
+                width: 100%;
                 height: 200px;
             }
         }
@@ -1123,33 +1201,25 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     }
 
     .nav {
-        &--forHeader {
-        }
-    
         &--forTabs {
             text-align: left;
             padding-left: 12px;
         }
-    
-        &--forFooter {
-            flex-direction: column;
+
+        &Section {
+            &__buttons {
+                .btn {
+                    display: none;
+                }
+            }
         }
     
         &Scroll {
-            & .btn {
-                display: none;
-            }
-
-            &__container {
-                display: none;
-            }
-
             &__enroll {
                 display: block !important;
             }
         }
-    
-    
+
         &__link {
             &--forScroll {
             }
@@ -1190,7 +1260,6 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     }
 
     .schedule {
-
         &__dateBackground {
             display: none;
         }
@@ -1202,20 +1271,17 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
         &__item {
             flex-direction: column;
-            margin-bottom: 20px; 
+            margin-bottom: 10px; 
             &Date {
                 display: inline;
-                width: 0;
                 max-width: none;
                 min-width: 250px;
-                background: red;
                 text-align: left;
                 padding: 5px 5px 5px 15px;
                 background: #fff;
                 color: rgba(0,0,0,0.8);
                 border-top-right-radius: 5px;
                 border-bottom-right-radius: 5px;
-                margin-bottom: 5px;
             }
 
             &:first-child &Date {
@@ -1224,7 +1290,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             }
 
             &Title {
-                padding-top: 0;
+                padding-top: 5px;
             }
 
             &Time {
@@ -1249,7 +1315,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     .nav {
         &Scroll {
             &__toggler {
-                display: none;
+                display: none !important;
             }
             &__container {
                 display: block;
@@ -1266,6 +1332,18 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
                 min-height: 500px;
             }
             
+        }
+
+        &ForScroll {
+            & .navScroll__toggler {
+                display: none !important;
+            }
+        }
+    }
+    .school {
+        &__logo {
+            width: 250px;
+            height: 250px;
         }
     }
 }
@@ -1303,22 +1381,4 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         }
     }
 
-    .header {
-        &__subSection {
-            max-width: 100%;
-            padding: 10px 20px;
-            text-align: center;
-            position: relative;
-            left: initial;
-            right: initial;
-            bottom: initial;
-            top: initial;
-
-            &Container {
-                display: flex;
-                flex-direction: column-reverse;
-                margin-top: $sectionContainerPadding * -2;
-            }
-        }
-    }
 }

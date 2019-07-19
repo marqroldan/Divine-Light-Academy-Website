@@ -1,11 +1,19 @@
 @import 'defaults';
 
+$programItemFullWidth: 550px;
+$programImageFullWidth: $programItemFullWidth - 7px;
+$programItemMinWidth: 272px;
+$programItemMinHeight: 451px;
+$sectionContainerPadding: 20px;
+
+
 :root {
     box-sizing: border-box;
 }
 
 *, *:before, *:after {
     box-sizing: inherit;
+    -webkit-overflow-scrolling: touch !important;
   }
 
 html, body {
@@ -41,16 +49,7 @@ $navHeight--forScroll: 50px;
 
 .nav {
     width: 100%;
-
-    &--forScroll {
-        background: rgba(255,255,255,1);
-        height: $navHeight--forScroll;
-        position: sticky;
-        top: 0;
-        z-index: 110;
-        max-width: 100vw;
-    }
-
+    
     &--forHeader {
         position: absolute;
         padding: $navPadding 0;
@@ -62,6 +61,7 @@ $navHeight--forScroll: 50px;
         display: flex;
         justify-content: space-between;
         width: 90vw;
+        max-width: 1920px;
     }
 
     &--forTabs {
@@ -71,6 +71,39 @@ $navHeight--forScroll: 50px;
         text-align: center;
     }
 
+    &--forFooter {
+        flex-wrap: wrap;
+        display: flex;
+
+        & > * {
+            flex-shrink: 0;
+        }
+    }
+
+    &Scroll {
+        height: $navHeight--forScroll;
+        max-width: 1920px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+
+        & .btn {
+            max-height: 36px;
+        }
+
+        &__toggler {
+            height: 36px;
+            width: 36px;
+            background: yellow;
+        }
+        &__container {
+            display: none;
+        }
+    }
+
+
     &__link {
         color: #fff;
         text-decoration: none;
@@ -78,6 +111,18 @@ $navHeight--forScroll: 50px;
         font-weight: $font-weight--SemiBold;
         font-size: 14px;
         margin: auto;
+
+        &--forScroll {
+            color: #ae400a;
+            margin-right: 20px;
+            padding: 0 3px;
+            font-weight: $font-weight--Medium;
+            border-radius: 50%;
+            &:hover {
+                font-weight: $font-weight--SemiBold;
+                margin-right: 19px;
+            }
+        }
 
         &--forTabs {
             font-weight: $font-weight--Medium;
@@ -90,6 +135,17 @@ $navHeight--forScroll: 50px;
                 background: #fff;
                 color: #d06f3c;
                 font-weight: $font-weight--Bold;
+            }
+        }
+
+        &--forFooter {
+            font-weight: $font-weight--Regular;
+            margin: 0; 
+            margin-right: 10px;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
             }
         }
     }
@@ -109,6 +165,23 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     width: 90vw;
     max-width: 90vw;
     margin: 0 auto;
+
+    &ForScroll{
+        background-color: #fff;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,rgba(0,0,0,0.05) 100%);
+        box-shadow: 0 0 10px 5px rgba(255,255,255,0.3); //E3B337
+        min-height: initial;
+        max-height: $navHeight--forScroll;
+        position: sticky;
+        top: 0;
+        z-index: 110;
+    }
+
+    &ForHeader {
+        min-height: initial;
+        background: red;
+        z-index: 109;
+    }
 
     &Header {
         display: flex;
@@ -161,7 +234,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             width: 45vw;
             max-width: 45vw;
             min-height: 500px;
-            padding: 20px;
+            padding: $sectionContainerPadding;
             text-shadow: 0 2px 2px rgba(143,57,15,0.3);
 
             &--alignTop {
@@ -204,8 +277,60 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             padding: 30px 0;
             width: 80%;
         }
+    }
+}
 
+.footer {
+    background-color: rgba(136,94,14, 0.5);
+    z-index: 9999;
+    width: 100%;
+    height: initial;
+    min-height: initial;
+    .section {
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & > * {
+            flex: 1;
+        }
+
+    }
+    .copyright {
+        &, & a {
+            color: #fff ;
+            text-decoration: none;
+            opacity: 0.8; 
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        & a {
+            &:hover {
+                text-shadow: 0 0 5px rgba(255,255,255,0.7);
+            }
+        }
+
+        margin: 0 auto;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding: 10px 0;
+        text-align: right;
+        line-height: 16px;
+    }
+
+
+}
+
+.info {
+    &Container {
         &__programs {
+            min-width: $programItemFullWidth;
+            min-height: $programItemMinHeight;
+            max-width: 100%;
             overflow: hidden;
             display: flex;
             flex-wrap: nowrap;
@@ -248,11 +373,13 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             }
 
             &Item{
-                width: 272px;
-                height: 451px;
+                text-align: left;
+                width: $programItemMinWidth;
+                height: $programItemMinHeight;
                 margin-right: 34px;
                 opacity: 0.5;
                 transition: all 0.3s linear;
+                cursor: pointer;
 
                 &--active, &:hover {
                     opacity: 1;
@@ -260,25 +387,19 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
                 &--active {
                     &:hover {
-                        width: 578px;
-                        .section {
-                            &Container {
-                                &__programs{
-                                    &Image {
-                                        width: 570px;
-                                        height: 118px;
-                                    }
-                                    &Info {
-                                        padding: 5px;
-                                        height: 100%;
-                                    }
-                                    &Details {
-                                        height: 100%; 
-                                        padding-top: 10px;
-                                        justify-content: flex-start;
-                                    }
-                                }
-                            }
+                        width: $programItemFullWidth;
+                        [class$=__programsImage] {
+                            width: $programImageFullWidth;
+                            height: 118px;
+                        }
+                        [class$=__programsInfo] {
+                            padding: 5px;
+                            height: 100%;
+                        }
+                        [class$=__programsDetails] {
+                            height: 100%; 
+                            padding-top: 10px;
+                            justify-content: flex-start;
                         }
                     }
                 }
@@ -286,20 +407,29 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             }
 
             &Navigation {
-
+                margin: 15px 0;
+                &Item {
+                    display: inline-block; 
+                    padding: 1px;
+                    border-radius: 15px; 
+                    opacity: 0.7;
+                    margin-right: 3px;
+                    cursor: pointer;
+                    span {
+                        display: block;
+                        width: 10px;
+                        height: 10px;
+                        background: white;
+                        border-radius: 15px; 
+                    }
+                    
+                    &--active, &:hover {
+                        opacity: 1;
+                        box-shadow: 0 0 2px 1px rgba(255,255,255,1);
+                    }
+                }
             }
         }
-    }
-}
-
-.footer {
-    background-color: #885e0a;
-    z-index: 9999;
-    width: 100%;
-    height: 100px;
-    min-height: initial;
-    .section {
-        padding: 20px;
     }
 }
 
@@ -310,7 +440,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
     &__campusTitle {
         font-weight: $font-weight--Bold;
-        font-size: 24px;
+        font-size: 30px;
         text-transform: uppercase;
         padding-bottom: 21px;
     }
@@ -327,6 +457,8 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             width: $dateWidth;
             min-height: inherit;
             height: 100%;
+            grid-row: 1;
+            grid-column: 1 / 2;
         }
     }
 
@@ -335,7 +467,8 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         &Container {
             width: 100%;
             height: 100%;
-            margin-left: $dateWidth * -1;
+            grid-row: 1;
+            grid-column: 1 / 2;
         }
 
         &Date, &Title {
@@ -345,21 +478,26 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         &Date {
             width: $dateWidth;
             text-align: right;
-            color: #d96d41;
+            color: #714D01;
             text-shadow: none;
             border-bottom: 1px solid rgba(0,0,0,0.03);
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: $font-weight--Medium;
+            flex-shrink: 0;
         }
 
         &Title {
-            font-size: 20px;
+            font-size: 18px;
         }
     }
 
     &__box {
         width: 100%;
         min-height: 500px;
+        height: 100%;
         display: grid;
-        grid-template-columns: $dateWidth 100%;
+        grid-template-columns: 1fr;
         grid-template-rows: 1fr;
     }
 }
@@ -393,15 +531,19 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         }
 
         &Item {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            overflow-wrap: break-word;
         }
     }
 
     &Container {
         justify-content: flex-end;
         &__right {
-            flex: 0 !important;
-            min-width: $contact__infoWidth;
+            flex-grow: 0;   
+            flex-shrink: 0;
+            flex-basis: $contact__infoWidth + ($sectionContainerPadding * 2);
+            width: $contact__infoWidth + ($sectionContainerPadding * 2);
+            max-width: $contact__infoWidth + ($sectionContainerPadding * 2);
         }
         &__left {
             flex: 1 !important;
@@ -428,6 +570,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
     &__content {
         min-height: 500px;
+        height: 100%;
         width: 100%;
         text-align: left; 
         padding: 15px;
@@ -572,6 +715,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 .school {
     color: #fff;
     &__logo {
+        flex-shrink: 0 !important;
         background: url('logo.png') no-repeat center;
         background-size: cover;
         min-width: 130px;
@@ -585,6 +729,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     &__slogan {
         font-weight: $font-weight--Medium;
         font-size: 18px;
+        text-align: center;
         text-transform: uppercase;
         letter-spacing: 2px;
         margin-top: -5px;
@@ -592,10 +737,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
     &__campus {
         margin: 25px 0;
-
-        .btn--campus:first-child {
-            margin-right: 13px;
-        }
+        text-align: center;
     }
 
     &__cta {
@@ -623,6 +765,21 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
     &--campus {
         min-width: 250px;
+        margin: 7px; 
+    }
+
+    &--grey {
+        background: #c7c7c7;
+        color: #fff;
+    }
+
+    &--fontMedium {
+        font-weight: $font-weight--Medium;
+    }
+
+    &--forScroll {
+        margin-left: 10px;
+        min-width: 0%;
     }
 
     &--white {
@@ -691,7 +848,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 }
 
 // Media Queries
-@media (max-height: $breakpoint__height--Min) {
+@media (max-height: $breakpoint__height--Min), (max-width: $breakpoint__width--SmallUnfortunate) {
     .nav {
         &--forHeader {
             padding: $navPadding - 15px 0;
@@ -709,7 +866,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     }
 }
 
-@media (min-height: $breakpoint__height--Max) {
+@media (min-height: $breakpoint__height--Max){
     .height {
         min-height: 1080px;
         height: 100%;
@@ -721,14 +878,384 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         &--forHeader {
             display: none;
         }
+    }
 
-        &--forScroll {
+    .section {
+        width: 95vw;
+        max-width: 95vw;
+        &ForScroll {
             position: fixed;
+            display: block;
+        }
+    }
+
+    .news {
+        &Container {
+            min-height: 0%;
+            height: auto;
+            max-height: none;
+            flex-direction: column-reverse;
+            &__left, &__right {
+                width: 100%;
+                max-width: 100%;
+                min-width: 100%;
+                min-height: 0%;
+                max-height: none;
+            }
+        }
+
+        &__content {
+            min-height: 100px;
+            height: auto;
         }
     }
 }
 
+@media (max-width: $breakpoint__width--Medium) {
+    .info {
+        &Container {
+            flex-direction: column;
+
+            &__left, &__right {
+                width: initial;
+                max-width: initial;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint__width--ExtraSmall) {
+    .nav {
+        &--forHeader {
+            padding: $navPadding - 15px 0;
+        }
+
+        &--forFooter {
+            display: block;
+            text-align: center;
+        }
+
+    }
+    
+    .header {
+        &__body {
+            height: 100%;
+        }
+    }
+
+    .height {
+        min-height: 100%;
+    }
+
+    .section {
+        &Container {
+            text-align: left;
+        }
+
+        &Header {
+            align-items: flex-start !important;
+        }
+    }
+
+    .footer {
+        .section {
+            flex-direction: column;
+        }
+
+        & .copyright {
+            text-align: center;
+        }
+    }
+
+    .school {
+        &__name {
+            display: none;
+        }
+
+        &__logo {
+            width: 300px;
+            height: 300px;
+        }
+
+        &__slogan {
+            font-size: 36px;
+            font-weight: $font-weight--Bold;
+            text-shadow: 0 2px 0 rgba(134, 57, 11, 0.5);
+            letter-spacing: 0px;
+        }
+    }
+
+    .info {
+        &Container {
+            &__programs {
+                min-width: 100%;
+                &Image {
+                    width: calc(100% - 6px);
+                }
+                &Title {
+                    font-weight: $font-weight--Bold;
+                    font-size: 30px;
+                    line-height: 28px;
+                    padding: 5px;
+                    width: 95%;
+                }
+                &Info {
+                    font-size: 14px;
+                }
+    
+                &Item{
+                    flex-grow: 1;
+                    flex-shrink: 0;
+                    text-align: left;
+                    width: 100%;
+    
+                    &--active, &:hover {
+                        opacity: 1;
+                    }
+    
+                    &--active {
+                        &:hover {
+                            width: 100%;
+                            [class$=__programsImage] {
+                                width: calc(100% - 6px);
+                                height: 90px;
+                            }
+                        }
+                    }
+    
+                }
+            }
+        }
+    }
+
+    .schedule {
+        &Container {
+            flex-direction: column;
+
+            &__left, &__right {
+                width: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                min-height: 100px;
+                max-height: none;
+                height: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint__width--ExtraSmall + 100px) {
+    .contact {
+        &Container {
+            flex-direction: column;
+            &__left, &__right {
+                flex: 1;
+                width: 100%;
+                max-width: 100%;
+                min-height: 0%;
+            }
+            
+            &__left {
+                padding: 0;
+            }
+        }
+
+        &__info {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        &__map {
+            min-height: 0%;
+            border: 0 !important;
+            border-radius: 0 !important;
+            &Container {
+                width: 100vw;
+                margin-left: -2.5vw;
+                height: 200px;
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint__width--SmallExtreme) {
+
+    .school {
+        &__slogan {
+            font-size: 30px;
+        }
+    }
+
+    .info {
+        &Container {
+            &__left {
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+    }
+
+    .section {
+        &Container {
+            text-align: left;
+            
+            &__subHeading{
+                font-size: 25px;
+            }
+
+            &__heading {
+                font-size: 50px;
+                line-height: 40px;
+            }
+
+            &__paragraph {
+                width: 100%;
+            }
+        }
+    }
+
+    .btn {
+        &--campus {
+            min-width: 345px;
+        }
+    }
+
+    .nav {
+        &--forHeader {
+        }
+    
+        &--forTabs {
+            text-align: left;
+            padding-left: 12px;
+        }
+    
+        &--forFooter {
+            flex-direction: column;
+        }
+    
+        &Scroll {
+            & .btn {
+                display: none;
+            }
+
+            &__container {
+                display: none;
+            }
+
+            &__enroll {
+                display: block !important;
+            }
+        }
+    
+    
+        &__link {
+            &--forScroll {
+            }
+    
+            &--forTabs {
+                font-size: 15px;
+                font-weight: $font-weight--Medium;
+                padding: 8px 10px 7px 10px;
+                margin: 0;
+                border-radius: 17px;
+
+                &:first-child {
+                    border-top-left-radius: 0px;
+                }
+    
+                &--active, &:hover{
+                    background: #fff;
+                    color: #d06f3c;
+                    font-weight: $font-weight--Bold;
+                }
+            }
+    
+            &--forFooter {
+                display: inline-block;
+                font-weight: $font-weight--Regular;
+                margin-right: 10px;
+                opacity: 0.8;
+    
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .flex {
+        flex-direction: column !important;
+    }
+
+    .schedule {
+
+        &__dateBackground {
+            display: none;
+        }
+
+        &__box {
+            min-height: 100px;
+            height: auto;
+        }
+
+        &__item {
+            flex-direction: column;
+            margin-bottom: 20px; 
+            &Date {
+                display: inline;
+                width: 0;
+                max-width: none;
+                min-width: 250px;
+                background: red;
+                text-align: left;
+                padding: 5px 5px 5px 15px;
+                background: #fff;
+                color: rgba(0,0,0,0.8);
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                margin-bottom: 5px;
+            }
+
+            &:first-child &Date {
+                border-top-right-radius: 0px;
+                border-top-left-radius: 4px;
+            }
+
+            &Title {
+                padding-top: 0;
+            }
+
+            &Time {
+                margin-left: 10px;
+                display: inline;
+            }
+        }
+    }
+
+
+    .contact {
+        &__info {
+            min-width: 100%;
+        }
+    }
+
+
+}
+
+
 @media (min-width: $breakpoint__width--Large) {
+    .nav {
+        &Scroll {
+            &__toggler {
+                display: none;
+            }
+            &__container {
+                display: block;
+            }
+        }
+    }
     .section {
         width: 90%;
         max-width: $breakpoint__width--Large;
@@ -739,6 +1266,59 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
                 min-height: 500px;
             }
             
+        }
+    }
+}
+
+@media (max-width: $breakpoint__width--SmallUnfortunate) {
+    .nav {
+        &--forTabs {
+
+        }
+
+        &__link {
+            &--forTabs {
+                font-size: 13px;
+                padding: 8px 8px 7px 8px;
+            }
+        }
+    }
+
+    .section {
+        &Container {
+            &__subHeading {
+                font-size: 20px;
+            }
+            &__heading { 
+                font-size: 38px;
+                line-height: 35px;
+            }
+        }
+    }
+
+    .school {
+        &__logo {
+            width: 80vw;
+            height: 80vw;
+        }
+    }
+
+    .header {
+        &__subSection {
+            max-width: 100%;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+            left: initial;
+            right: initial;
+            bottom: initial;
+            top: initial;
+
+            &Container {
+                display: flex;
+                flex-direction: column-reverse;
+                margin-top: $sectionContainerPadding * -2;
+            }
         }
     }
 }

@@ -10,6 +10,7 @@
 
 *, *:before, *:after {
   box-sizing: inherit;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 html, body {
@@ -43,14 +44,6 @@ header, section, footer {
 .nav {
   width: 100%;
 }
-.nav--forScroll {
-  background: white;
-  height: 50px;
-  position: sticky;
-  top: 0;
-  z-index: 110;
-  max-width: 100vw;
-}
 .nav--forHeader {
   position: absolute;
   padding: 52px 0;
@@ -62,12 +55,40 @@ header, section, footer {
   display: flex;
   justify-content: space-between;
   width: 90vw;
+  max-width: 1920px;
 }
 .nav--forTabs {
   width: 90vw;
   margin: 0 auto;
   padding: 85px 0 20px 0;
   text-align: center;
+}
+.nav--forFooter {
+  flex-wrap: wrap;
+  display: flex;
+}
+.nav--forFooter > * {
+  flex-shrink: 0;
+}
+.navScroll {
+  height: 50px;
+  max-width: 1920px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+.navScroll .btn {
+  max-height: 36px;
+}
+.navScroll__toggler {
+  height: 36px;
+  width: 36px;
+  background: yellow;
+}
+.navScroll__container {
+  display: none;
 }
 .nav__link {
   color: #fff;
@@ -76,6 +97,17 @@ header, section, footer {
   font-weight: 600;
   font-size: 14px;
   margin: auto;
+}
+.nav__link--forScroll {
+  color: #ae400a;
+  margin-right: 20px;
+  padding: 0 3px;
+  font-weight: 500;
+  border-radius: 50%;
+}
+.nav__link--forScroll:hover {
+  font-weight: 600;
+  margin-right: 19px;
 }
 .nav__link--forTabs {
   font-weight: 500;
@@ -88,6 +120,15 @@ header, section, footer {
   background: #fff;
   color: #d06f3c;
   font-weight: 700;
+}
+.nav__link--forFooter {
+  font-weight: 400;
+  margin: 0;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+.nav__link--forFooter:hover {
+  opacity: 1;
 }
 
 .boxContainer {
@@ -102,6 +143,21 @@ header, section, footer {
   width: 90vw;
   max-width: 90vw;
   margin: 0 auto;
+}
+.sectionForScroll {
+  background-color: #fff;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+  min-height: initial;
+  max-height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 110;
+}
+.sectionForHeader {
+  min-height: initial;
+  background: red;
+  z-index: 109;
 }
 .sectionHeader {
   display: flex;
@@ -178,12 +234,52 @@ header, section, footer {
   padding: 30px 0;
   width: 80%;
 }
-.sectionContainer__programs {
+
+.footer {
+  background-color: rgba(136, 94, 14, 0.5);
+  z-index: 9999;
+  width: 100%;
+  height: initial;
+  min-height: initial;
+}
+.footer .section {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer .section > * {
+  flex: 1;
+}
+.footer .copyright {
+  margin: 0 auto;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 10px 0;
+  text-align: right;
+  line-height: 16px;
+}
+.footer .copyright, .footer .copyright a {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.8;
+}
+.footer .copyright:hover, .footer .copyright a:hover {
+  opacity: 1;
+}
+.footer .copyright a:hover {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+.infoContainer__programs {
+  min-width: 550px;
+  min-height: 451px;
+  max-width: 100%;
   overflow: hidden;
   display: flex;
   flex-wrap: nowrap;
 }
-.sectionContainer__programsImage {
+.infoContainer__programsImage {
   background-image: url("../images/2.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -196,7 +292,7 @@ header, section, footer {
   box-sizing: border-box;
   transition: all 0.3s linear;
 }
-.sectionContainer__programsDetails {
+.infoContainer__programsDetails {
   border-top: 1px solid rgba(255, 255, 255, 0.75);
   padding: 3px;
   display: flex;
@@ -205,55 +301,69 @@ header, section, footer {
   justify-content: center;
   height: 132px;
 }
-.sectionContainer__programsTitle {
+.infoContainer__programsTitle {
   font-weight: 700;
   font-size: 30px;
   line-height: 28px;
   padding: 5px;
   width: 95%;
 }
-.sectionContainer__programsInfo {
+.infoContainer__programsInfo {
   font-size: 16px;
   height: 0px;
   padding: 0 5px;
   transition: all 0.3s linear;
   overflow: hidden;
 }
-.sectionContainer__programsItem {
+.infoContainer__programsItem {
+  text-align: left;
   width: 272px;
   height: 451px;
   margin-right: 34px;
   opacity: 0.5;
   transition: all 0.3s linear;
+  cursor: pointer;
 }
-.sectionContainer__programsItem--active, .sectionContainer__programsItem:hover {
+.infoContainer__programsItem--active, .infoContainer__programsItem:hover {
   opacity: 1;
 }
-.sectionContainer__programsItem--active:hover {
-  width: 578px;
+.infoContainer__programsItem--active:hover {
+  width: 550px;
 }
-.sectionContainer__programsItem--active:hover .sectionContainer__programsImage {
-  width: 570px;
+.infoContainer__programsItem--active:hover [class$=__programsImage] {
+  width: 543px;
   height: 118px;
 }
-.sectionContainer__programsItem--active:hover .sectionContainer__programsInfo {
+.infoContainer__programsItem--active:hover [class$=__programsInfo] {
   padding: 5px;
   height: 100%;
 }
-.sectionContainer__programsItem--active:hover .sectionContainer__programsDetails {
+.infoContainer__programsItem--active:hover [class$=__programsDetails] {
   height: 100%;
   padding-top: 10px;
   justify-content: flex-start;
 }
-.footer {
-  background-color: #885e0a;
-  z-index: 9999;
-  width: 100%;
-  height: 100px;
-  min-height: initial;
+.infoContainer__programsNavigation {
+  margin: 15px 0;
 }
-.footer .section {
-  padding: 20px;
+.infoContainer__programsNavigationItem {
+  display: inline-block;
+  padding: 1px;
+  border-radius: 15px;
+  opacity: 0.7;
+  margin-right: 3px;
+  cursor: pointer;
+}
+.infoContainer__programsNavigationItem span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 15px;
+}
+.infoContainer__programsNavigationItem--active, .infoContainer__programsNavigationItem:hover {
+  opacity: 1;
+  box-shadow: 0 0 2px 1px white;
 }
 
 .scheduleContainer {
@@ -261,7 +371,7 @@ header, section, footer {
 }
 .schedule__campusTitle {
   font-weight: 700;
-  font-size: 24px;
+  font-size: 30px;
   text-transform: uppercase;
   padding-bottom: 21px;
 }
@@ -273,6 +383,8 @@ header, section, footer {
   width: 180px;
   min-height: inherit;
   height: 100%;
+  grid-row: 1;
+  grid-column: 1/2;
 }
 .schedule__item {
   display: flex;
@@ -280,7 +392,8 @@ header, section, footer {
 .schedule__itemContainer {
   width: 100%;
   height: 100%;
-  margin-left: -180px;
+  grid-row: 1;
+  grid-column: 1/2;
 }
 .schedule__itemDate, .schedule__itemTitle {
   padding: 15px;
@@ -288,18 +401,23 @@ header, section, footer {
 .schedule__itemDate {
   width: 180px;
   text-align: right;
-  color: #d96d41;
+  color: #714D01;
   text-shadow: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  flex-shrink: 0;
 }
 .schedule__itemTitle {
-  font-size: 20px;
+  font-size: 18px;
 }
 .schedule__box {
   width: 100%;
   min-height: 500px;
+  height: 100%;
   display: grid;
-  grid-template-columns: 180px 100%;
+  grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
 
@@ -325,14 +443,18 @@ header, section, footer {
   padding: 13px 0 7px 0;
 }
 .contact__infoItem {
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  overflow-wrap: break-word;
 }
 .contactContainer {
   justify-content: flex-end;
 }
 .contactContainer__right {
-  flex: 0 !important;
-  min-width: 550px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 590px;
+  width: 590px;
+  max-width: 590px;
 }
 .contactContainer__left {
   flex: 1 !important;
@@ -355,6 +477,7 @@ header, section, footer {
 }
 .news__content {
   min-height: 500px;
+  height: 100%;
   width: 100%;
   text-align: left;
   padding: 15px;
@@ -479,6 +602,7 @@ header, section, footer {
   color: #fff;
 }
 .school__logo {
+  flex-shrink: 0 !important;
   background: url("logo.png") no-repeat center;
   background-size: cover;
   min-width: 130px;
@@ -492,15 +616,14 @@ header, section, footer {
 .school__slogan {
   font-weight: 500;
   font-size: 18px;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-top: -5px;
 }
 .school__campus {
   margin: 25px 0;
-}
-.school__campus .btn--campus:first-child {
-  margin-right: 13px;
+  text-align: center;
 }
 .school__cta {
   margin-top: 50px;
@@ -524,6 +647,18 @@ header, section, footer {
 }
 .btn--campus {
   min-width: 250px;
+  margin: 7px;
+}
+.btn--grey {
+  background: #c7c7c7;
+  color: #fff;
+}
+.btn--fontMedium {
+  font-weight: 500;
+}
+.btn--forScroll {
+  margin-left: 10px;
+  min-width: 0%;
 }
 .btn--white {
   background: #fff;
@@ -582,7 +717,7 @@ header, section, footer {
   background-size: 100% 100%;
 }
 
-@media (max-height: 625px) {
+@media (max-height: 625px), (max-width: 400px) {
   .nav--forHeader {
     padding: 37px 0;
   }
@@ -605,11 +740,285 @@ header, section, footer {
   .nav--forHeader {
     display: none;
   }
-  .nav--forScroll {
+
+  .section {
+    width: 95vw;
+    max-width: 95vw;
+  }
+  .sectionForScroll {
     position: fixed;
+    display: block;
+  }
+
+  .newsContainer {
+    min-height: 0%;
+    height: auto;
+    max-height: none;
+    flex-direction: column-reverse;
+  }
+  .newsContainer__left, .newsContainer__right {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 0%;
+    max-height: none;
+  }
+  .news__content {
+    min-height: 100px;
+    height: auto;
+  }
+}
+@media (max-width: 1348px) {
+  .infoContainer {
+    flex-direction: column;
+  }
+  .infoContainer__left, .infoContainer__right {
+    width: initial;
+    max-width: initial;
+    align-items: center;
+    text-align: center;
+  }
+}
+@media (max-width: 800px) {
+  .nav--forHeader {
+    padding: 37px 0;
+  }
+  .nav--forFooter {
+    display: block;
+    text-align: center;
+  }
+
+  .header__body {
+    height: 100%;
+  }
+
+  .height {
+    min-height: 100%;
+  }
+
+  .sectionContainer {
+    text-align: left;
+  }
+  .sectionHeader {
+    align-items: flex-start !important;
+  }
+
+  .footer .section {
+    flex-direction: column;
+  }
+  .footer .copyright {
+    text-align: center;
+  }
+
+  .school__name {
+    display: none;
+  }
+  .school__logo {
+    width: 300px;
+    height: 300px;
+  }
+  .school__slogan {
+    font-size: 36px;
+    font-weight: 700;
+    text-shadow: 0 2px 0 rgba(134, 57, 11, 0.5);
+    letter-spacing: 0px;
+  }
+
+  .infoContainer__programs {
+    min-width: 100%;
+  }
+  .infoContainer__programsImage {
+    width: calc(100% - 6px);
+  }
+  .infoContainer__programsTitle {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 28px;
+    padding: 5px;
+    width: 95%;
+  }
+  .infoContainer__programsInfo {
+    font-size: 14px;
+  }
+  .infoContainer__programsItem {
+    flex-grow: 1;
+    flex-shrink: 0;
+    text-align: left;
+    width: 100%;
+  }
+  .infoContainer__programsItem--active, .infoContainer__programsItem:hover {
+    opacity: 1;
+  }
+  .infoContainer__programsItem--active:hover {
+    width: 100%;
+  }
+  .infoContainer__programsItem--active:hover [class$=__programsImage] {
+    width: calc(100% - 6px);
+    height: 90px;
+  }
+
+  .scheduleContainer {
+    flex-direction: column;
+  }
+  .scheduleContainer__left, .scheduleContainer__right {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    max-height: none;
+    height: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .contactContainer {
+    flex-direction: column;
+  }
+  .contactContainer__left, .contactContainer__right {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    min-height: 0%;
+  }
+  .contactContainer__left {
+    padding: 0;
+  }
+  .contact__info {
+    width: 100%;
+    max-width: 100%;
+  }
+  .contact__map {
+    min-height: 0%;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+  .contact__mapContainer {
+    width: 100vw;
+    margin-left: -2.5vw;
+    height: 200px;
+  }
+}
+@media (max-width: 600px) {
+  .school__slogan {
+    font-size: 30px;
+  }
+
+  .infoContainer__left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .sectionContainer {
+    text-align: left;
+  }
+  .sectionContainer__subHeading {
+    font-size: 25px;
+  }
+  .sectionContainer__heading {
+    font-size: 50px;
+    line-height: 40px;
+  }
+  .sectionContainer__paragraph {
+    width: 100%;
+  }
+
+  .btn--campus {
+    min-width: 345px;
+  }
+
+  .nav--forTabs {
+    text-align: left;
+    padding-left: 12px;
+  }
+  .nav--forFooter {
+    flex-direction: column;
+  }
+  .navScroll .btn {
+    display: none;
+  }
+  .navScroll__container {
+    display: none;
+  }
+  .navScroll__enroll {
+    display: block !important;
+  }
+  .nav__link--forTabs {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 10px 7px 10px;
+    margin: 0;
+    border-radius: 17px;
+  }
+  .nav__link--forTabs:first-child {
+    border-top-left-radius: 0px;
+  }
+  .nav__link--forTabs--active, .nav__link--forTabs:hover {
+    background: #fff;
+    color: #d06f3c;
+    font-weight: 700;
+  }
+  .nav__link--forFooter {
+    display: inline-block;
+    font-weight: 400;
+    margin-right: 10px;
+    opacity: 0.8;
+  }
+  .nav__link--forFooter:hover {
+    opacity: 1;
+  }
+
+  .flex {
+    flex-direction: column !important;
+  }
+
+  .schedule__dateBackground {
+    display: none;
+  }
+  .schedule__box {
+    min-height: 100px;
+    height: auto;
+  }
+  .schedule__item {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .schedule__itemDate {
+    display: inline;
+    width: 0;
+    max-width: none;
+    min-width: 250px;
+    background: red;
+    text-align: left;
+    padding: 5px 5px 5px 15px;
+    background: #fff;
+    color: rgba(0, 0, 0, 0.8);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 5px;
+  }
+  .schedule__item:first-child .schedule__itemDate {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 4px;
+  }
+  .schedule__itemTitle {
+    padding-top: 0;
+  }
+  .schedule__itemTime {
+    margin-left: 10px;
+    display: inline;
+  }
+
+  .contact__info {
+    min-width: 100%;
   }
 }
 @media (min-width: 1920px) {
+  .navScroll__toggler {
+    display: none;
+  }
+  .navScroll__container {
+    display: block;
+  }
+
   .section {
     width: 90%;
     max-width: 1920px;
@@ -618,6 +1027,41 @@ header, section, footer {
     width: 50%;
     max-width: 1920px;
     min-height: 500px;
+  }
+}
+@media (max-width: 400px) {
+  .nav__link--forTabs {
+    font-size: 13px;
+    padding: 8px 8px 7px 8px;
+  }
+
+  .sectionContainer__subHeading {
+    font-size: 20px;
+  }
+  .sectionContainer__heading {
+    font-size: 38px;
+    line-height: 35px;
+  }
+
+  .school__logo {
+    width: 80vw;
+    height: 80vw;
+  }
+
+  .header__subSection {
+    max-width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    left: initial;
+    right: initial;
+    bottom: initial;
+    top: initial;
+  }
+  .header__subSectionContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: -40px;
   }
 }
 

@@ -278,6 +278,10 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         & > * {
             flex: 1 1 auto;
         }
+
+        &__single {
+            padding: $sectionContainerPadding;
+        }
         
         &__left {
             align-items: flex-end;
@@ -339,6 +343,13 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             padding: 30px 0;
             width: 80%;
         }
+    }
+
+    &Title {
+        font-weight: $font-weight--Bold;
+        font-size: 30px;
+        text-transform: uppercase;
+        padding-bottom: 21px;
     }
 }
 
@@ -507,13 +518,6 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 .schedule {
     &Container {
         padding: 30px 0;
-    }
-
-    &__campusTitle {
-        font-weight: $font-weight--Bold;
-        font-size: 30px;
-        text-transform: uppercase;
-        padding-bottom: 21px;
     }
 
     $dateWidth: 180px;
@@ -899,6 +903,10 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             opacity: 1 !important;
         }
     }
+
+    &--admissions {
+        padding-top: 50px;
+    }
 }
 
 .mainBG {
@@ -1005,6 +1013,10 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
                 display: block;
             }
 
+        }
+
+        &--forHeader {
+            padding-bottom: 0 !important;
         }
     }
 

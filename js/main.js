@@ -10,6 +10,7 @@ const app = {
 
         //History manipulator
         app.history.change(app.page.default);
+        window.addEventListener('popstate', app.page.pop);
         
         //Adding event listeners for triggering the navigation change
         scrollTrigger = 0;
@@ -114,6 +115,7 @@ const app = {
         change: function(params) {
             title = params.title ? params.title : '';
             url = params.url ? params.url : '';
+            state = params.state ? params.state : {};
 
             if(url=='') return;
             if(title!='') {
@@ -122,12 +124,14 @@ const app = {
 
             switch(params.type) {
                 case 'push':
-                    history.pushState({}, title, url);
+                    history.pushState(state, title, url);
                     break;
                 default:
-                    history.replaceState({}, title, url);
+                    history.replaceState(state, title, url);
             }
-            app.page.current = url;
+            if(!params.samePage) {
+                app.page.current = url;
+            }
         }
     },
     logoChange: function() {
@@ -148,6 +152,7 @@ const app = {
     nav: {
         _state: {
             menuToggle: false,
+            clicking: 0,
         },
         _functions: {
             removeOpacity: function() {
@@ -167,22 +172,25 @@ const app = {
         },
         click: function(e) {
             e.preventDefault();
-            if(this.getAttribute('href')=='#') return;
-            switch (this.getAttribute('link_type')) {
-                case 'page':
-                    if(location.hash==this.getAttribute('href')) {
+            if((new Date()).getTime() - app.nav._state.clicking >= 500) {
+                app.nav._state.clicking  = (new Date()).getTime();
+                if(this.getAttribute('href')=='#') return;
+                switch (this.getAttribute('link_type')) {
+                    case 'page':
+                        if(app.page.current==this.getAttribute('href')) {
+                            app.page.scroll(this,{samePage: true});
+                        }
+                        else {
+                            app.page.change(this);
+                        }
+                        break;
+                    case 'tab':    
+                        app.tab.change(this);
+                        break;
+                    default:
                         app.page.scroll(this);
-                    }
-                    else {
-                        app.page.change(this);
-                    }
-                    break;
-                case 'tab':    
-                    app.tab.change(this);
-                    break;
-                default:
-                    app.page.scroll(this);
-                    break;
+                        break;
+                }
             }
         },
         menuClickCheck: function(e) {
@@ -279,14 +287,22 @@ const app = {
     },
     page: {
         current: '',
-        change: function(elem, callback=null) {
+        change: function(elem, settings={}) {
             //check if element exists
             let target = document.querySelector(elem.getAttribute('href'));
             if(target) {
                 pageName = target.getAttribute('page_title') ? target.getAttribute('page_title') : '';
                 current = document.querySelector(app.page.current);
-                
-                app.history.change({type: 'push', title: pageName, url: elem.getAttribute('href')})
+                if(!settings.historyObj) settings['historyObj'] = {};
+                settings.historyObj.type = 'push';
+                settings.historyObj.title = pageName;
+                settings.historyObj.url =  elem.getAttribute('href');
+                if(!settings.pop) {
+                    app.history.change(settings.historyObj);
+                }
+                else {
+                    app.page.current = elem.getAttribute('href');
+                }
 
                 function triggerShow() {
                     current.removeEventListener('transitionend', triggerShow);
@@ -299,8 +315,8 @@ const app = {
                         elem.setAttribute('href',elem.getAttribute('delay_href'));
                         elem.removeAttribute('delay_href');
                     }
-                    app.page.scroll(elem);
-                    if(callback) callback();
+                    app.page.scroll(elem, settings);
+                    if(settings.callback) settings.callback();
                 }
                 current.addEventListener('transitionend', triggerShow);
                 setTimeout(function() {
@@ -310,17 +326,29 @@ const app = {
                 document.querySelector('.school__logo').dispatchEvent(new Event('logoChange'));
             }
         },
-        scroll: function(elem) {
+        pop: function(e) {
+            document.querySelector("#top").scrollIntoView({ behavior: 'smooth' });
+            anchor = document.querySelector(`a[href="${location.hash}"]`)
+            if(anchor.getAttribute('link_type')=='page') {
+                app.page.change(anchor,{pop:true});
+            }
+            else {
+                app.page.scroll(anchor, {pop:true});
+            }
+        },
+        scroll: function(elem, settings={}) {
             href = elem.getAttribute('href');
-            //Check if the target is under the current page 
             targetPageId = document.querySelector(href).parentNode.parentNode.getAttribute('id');
             if(targetPageId && targetPageId != app.page.current.replace('#','')) {
                 elem.setAttribute('href',`#${targetPageId}`);
                 elem.setAttribute('delay_href', href);
-                app.page.change(elem);
+                app.page.change(elem, settings);
             }
             else {
                 //Smooth scrolling can also be enabled using CSS but might have issues with cross browser compatibility
+                if((app.page.current != href || settings.samePage) && !settings.pop)  {
+                    app.history.change({type: 'push', samePage: true, title: elem.textContent, url: href})
+                }
                 document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
             }
         },

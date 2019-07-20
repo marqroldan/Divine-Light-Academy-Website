@@ -5,6 +5,9 @@ const app = {
         app.page.default = {url:'#home'};
         app.page.default.title = document.querySelector(app.page.default.url).getAttribute('page_title');
         app.nav.menuContainer = document.querySelector('#navForScroll');
+
+        document.querySelector(app.page.default.url).style.display = "block";
+
         //History manipulator
         app.history.change(app.page.default);
         
@@ -72,6 +75,14 @@ const app = {
         _state: {
             menuToggle: false,
         },
+        _functions: {
+            removeOpacity: function() {
+                app.nav.menuStyle['opacity'] = '';
+                app.nav.applyStyle();
+                app.nav._state.menuToggle = false;
+                app.nav.menuContainer.removeEventListener('transitionend',app.nav._functions.removeOpacity);
+            },
+        },
         applyStyle: function(callback) {
             if(callback) {
                 app.nav.menuContainer.addEventListener('transitionend',callback);
@@ -108,22 +119,16 @@ const app = {
                 });
     
                 if(!foundCorrect) {
+                    app.nav._state.menuToggle = false;
                     app.nav.menuReset();
                 }
             }
         },
-        menuReset: function() {
+        menuReset: function(opacityDown=false) {
             menuContainer = app.nav.menuContainer;
-            function removeOpacity() {
-                console.log('calledme');
-                app.nav.menuStyle['opacity'] = "";
-                app.nav.applyStyle();
-                menuContainer.removeEventListener('transitionend', removeOpacity);
-            }
-
-            menuContainer.addEventListener('transitionend', removeOpacity);
+            if(opacityDown) { app.nav.menuStyle['opacity'] = ''; }
             app.nav.menuStyle['left'] = '';
-            app.nav.applyStyle();
+            app.nav.applyStyle(app.nav._functions.removeOpacity);
         },
         menuStyle: {},
         menuToggle: function() {
@@ -139,14 +144,7 @@ const app = {
 
                 if (app.nav.menuStyle['left'] && app.nav.menuStyle['left']!='') {
                     app.nav.menuStyle['left'] = '';
-                    removeOpacity = function() {
-                        app.nav.menuStyle['opacity'] = '';
-                        console.log('called');
-                        app.nav.applyStyle();
-                        app.nav._state.menuToggle = false;
-                        menuContainer.removeEventListener('transitionend',removeOpacity);
-                    };
-                    app.nav.applyStyle(removeOpacity);
+                    app.nav.applyStyle(app.nav._functions.removeOpacity);
                 }
                 else {
                     app.nav.menuStyle['left'] = "0px";
@@ -200,14 +198,14 @@ const app = {
                         link.classList.remove('nav__link--forScroll');
                     });
 
-                    app.nav.menuReset();
+                    app.nav.menuReset(true);
                 }
             }
         }
     },
     page: {
         current: '',
-        change: function(elem) {
+        change: function(elem, callback=null) {
             //check if element exists
             let target = document.querySelector(elem.getAttribute('href'));
             if(target) {
@@ -215,26 +213,42 @@ const app = {
                 current = document.querySelector(app.page.current);
                 
                 app.history.change({type: 'push', title: pageName, url: elem.getAttribute('href')})
+
                 function triggerShow() {
-                    console.log('called')
+                    current.removeEventListener('transitionend', triggerShow);
                     current.style.display = "none";
                     target.style.display = "block";
-                    target.classList.add('main--active');
-                    current.removeEventListener('transitionend', triggerShow);
+                    setTimeout(function() {
+                        target.classList.add('main--active');
+                    }, 50)
+                    if(elem.getAttribute('delay_href')) {
+                        elem.setAttribute('href',elem.getAttribute('delay_href'));
+                        elem.removeAttribute('delay_href');
+                    }
                     app.page.scroll(elem);
+                    if(callback) callback();
                 }
                 current.addEventListener('transitionend', triggerShow);
-                current.classList.remove('main--active');
+                setTimeout(function() {
+                    current.classList.remove('main--active');
+                }, 50);
 
                 document.querySelector('.school__logo').dispatchEvent(new Event('logoChange'));
             }
         },
         scroll: function(elem) {
-            console.log('scrolly');
-            //No need for code as smooth scrolling is enabled in CSS
-            //Problem with CSS-enabled smooth scrolling will be cross browser compatibility
             href = elem.getAttribute('href');
-            document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            //Check if the target is under the current page 
+            targetPageId = document.querySelector(href).parentNode.parentNode.getAttribute('id');
+            if(targetPageId && targetPageId != app.page.current.replace('#','')) {
+                elem.setAttribute('href',`#${targetPageId}`);
+                elem.setAttribute('delay_href', href);
+                app.page.change(elem);
+            }
+            else {
+                //Smooth scrolling can also be enabled using CSS but might have issues with cross browser compatibility
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            }
         },
     },
     tab: {

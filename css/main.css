@@ -743,6 +743,9 @@ header, section, footer {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
+.main {
+  display: none;
+}
 .main > * {
   opacity: 0 !important;
   transition: opacity 0.3s ease-in-out;
@@ -829,8 +832,9 @@ header, section, footer {
     position: fixed;
   }
   .navSectionContainer {
-    display: none;
-    transition: left 0.3s ease-in-out;
+    opacity: 0;
+    left: -400px;
+    transition: all 0.3s ease-in-out;
   }
   .navSection__toggler {
     display: block;

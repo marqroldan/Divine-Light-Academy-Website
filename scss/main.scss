@@ -394,15 +394,18 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         &--active {
             display: flex;
         }
-
-        &__programs {
+        &__mover, &__programs {
             min-width: $programItemFullWidth;
             min-height: $programItemMinHeight;
             max-width: 100%;
-            overflow: hidden;
             display: flex;
             flex-wrap: nowrap;
+            transition: all 0.3s ease-in-out;
+        }
 
+        &__programs {
+            min-width: 100%;
+            overflow: hidden;
             &Image {
                 background-image: url('../images/2.jpg');
                 background-position: center;
@@ -481,7 +484,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
                     padding: 1px;
                     border-radius: 15px; 
                     opacity: 0.7;
-                    margin-right: 3px;
+                    margin-right: 5px;
                     cursor: pointer;
                     span {
                         display: block;
@@ -1133,8 +1136,11 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
     .info {
         &Container {
-            &__programs {
+            &__programs, &__mover {
                 min-width: 100%;
+            }
+
+            &__programs {
                 &Image {
                     width: calc(100% - 6px);
                 }

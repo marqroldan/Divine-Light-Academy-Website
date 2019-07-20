@@ -326,13 +326,17 @@ header, section, footer {
 .infoContainer--active {
   display: flex;
 }
-.infoContainer__programs {
+.infoContainer__mover, .infoContainer__programs {
   min-width: 550px;
   min-height: 451px;
   max-width: 100%;
-  overflow: hidden;
   display: flex;
   flex-wrap: nowrap;
+  transition: all 0.3s ease-in-out;
+}
+.infoContainer__programs {
+  min-width: 100%;
+  overflow: hidden;
 }
 .infoContainer__programsImage {
   background-image: url("../images/2.jpg");
@@ -406,7 +410,7 @@ header, section, footer {
   padding: 1px;
   border-radius: 15px;
   opacity: 0.7;
-  margin-right: 3px;
+  margin-right: 5px;
   cursor: pointer;
 }
 .infoContainer__programsNavigationItem span {
@@ -942,7 +946,7 @@ header, section, footer {
     letter-spacing: 0px;
   }
 
-  .infoContainer__programs {
+  .infoContainer__programs, .infoContainer__mover {
     min-width: 100%;
   }
   .infoContainer__programsImage {

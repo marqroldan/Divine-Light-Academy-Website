@@ -36,6 +36,79 @@ const app = {
         //Event listener for logo 
         document.querySelector('.school__logo').addEventListener('logoChange', app.logoChange);
 
+        //Slider event listener
+        app.slider.groups = document.querySelectorAll('[slider]');
+        app.slider.groups.forEach(function(group) {
+            sliderName = group.getAttribute('class');
+            sliderNavigation = document.querySelector(`.${sliderName}Navigation`);
+
+            let count = 1;
+            group.querySelectorAll(`.${sliderName}Item`).forEach(function(item) {
+                sliderId = `${sliderName}_${count}`;
+                item.setAttribute('sliderId',sliderId);
+                itemClass = `${sliderName}NavigationItem`;
+                itemActive = '';
+                if(item.classList.contains(`${sliderName}Item--active`)) itemActive = `${itemClass}--active`;
+                //create a navigation element
+                navigationItem = document.createElement('span');
+                navigationItem.setAttribute('class',`${itemClass} ${itemActive}`);
+                navigationItem.setAttribute('sliderId',sliderId);
+                navigationItem.appendChild(document.createElement('span'));
+                navigationItem.addEventListener('click',app.slider.navigationClick);
+                item.addEventListener('click',app.slider.navigationClick);
+                sliderNavigation.appendChild(navigationItem);
+
+                count++;
+            });
+        });
+
+        
+
+
+
+    },
+    slider: {
+        _state: {
+            click: (new Date()).getTime(),
+        },
+        groups: [],
+        itemClick: function() {
+
+        },
+        navigationClick: function() {
+            if((new Date()).getTime() - app.slider._state.click >= 500) {
+                app.slider._state.click = (new Date()).getTime();
+                try {
+                    parentContainer = this.parentNode.id.replace('Navigation','');
+                }
+                catch (e) {}
+                finally {
+                    if (parentContainer=='') {
+                        parentContainer = this.parentNode.parentNode.getAttribute('class');
+                    }
+                }
+                    targetItem = document.querySelector(`.${parentContainer}Item[sliderId=${this.getAttribute('sliderId')}]`);
+                    activeItem = document.querySelector(`.${parentContainer}Item--active`);
+                    mover = document.querySelector(`.${parentContainer} .sliderMover`);
+                    parentNode = document.querySelector(`.${parentContainer}`);
+    
+                    activeNavItemClass = `${parentContainer}NavigationItem--active`;
+                    activeNavItem = document.querySelector(`.${activeNavItemClass}`);
+                    activeNavItem.classList.remove(activeNavItemClass)
+                    document.querySelector(`.${parentContainer}NavigationItem[sliderId=${this.getAttribute('sliderId')}]`).classList.add(activeNavItemClass);
+    
+                    activeItem.classList.remove(`${parentContainer}Item--active`);
+                    targetItem.classList.add(`${parentContainer}Item--active`);
+                    marginLeft = parentNode.offsetLeft - targetItem.offsetLeft;
+                    if(mover.style.marginLeft!='') {
+                        marginLeft = Number(mover.style.marginLeft.replace('px',''));
+                        if(parentNode.offsetLeft != targetItem.offsetLeft) {
+                            marginLeft += parentNode.offsetLeft - targetItem.offsetLeft;
+                        }
+                    }
+                    mover.style.marginLeft = `${marginLeft}px`;
+            }
+        }
     },
     history: {
         change: function(params) {
@@ -66,6 +139,7 @@ const app = {
         else {
             function transitionRemove() {
                 logo.style.transition = "";
+                current.removeEventListener('transitionend',transitionRemove);
             }
             current.addEventListener('transitionend', transitionRemove);
             logo.classList.remove('school__logo--show');

@@ -54,6 +54,18 @@ header, section, footer {
 .navSection__buttons {
   display: none;
 }
+.navSectionContainer .school__logo {
+  min-width: 0px;
+  min-height: 0px;
+  height: 75px;
+  margin: -30px 0;
+  width: 0px;
+  background-position: -75px center;
+}
+.navSectionContainer .school__logo--show {
+  background-position: center center;
+  width: 75px;
+}
 .nav--forHeader {
   position: absolute;
   padding: 52px 0;
@@ -70,7 +82,7 @@ header, section, footer {
 .nav--forTabs {
   width: 90vw;
   margin: 0 auto;
-  padding: 85px 0 20px 0;
+  padding: 115px 0 20px 0;
   text-align: center;
 }
 .nav--forFooter {
@@ -97,10 +109,23 @@ header, section, footer {
 .navScroll__toggler {
   height: 36px;
   width: 36px;
-  background: yellow;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  line-height: 36px;
+  font-size: 20px;
+  position: relative;
+  z-index: 10001;
 }
 .navScroll__container {
   display: none;
+}
+.navScroll__container .school__logo {
+  display: inline-block;
+  min-width: 0px;
+  min-height: 0px;
+  width: 75px;
+  height: 75px;
+  margin: -50px 0;
 }
 .navScroll .navScroll__buttons {
   display: block;
@@ -167,8 +192,10 @@ header, section, footer {
   height: 100%;
   max-height: 50px;
   position: fixed;
+  opacity: 0;
   top: 0;
   z-index: 110;
+  transition: all 0.1s ease-in-out;
 }
 .sectionForScroll .navScroll__toggler {
   display: block !important;
@@ -176,6 +203,10 @@ header, section, footer {
 .sectionForHeader {
   min-height: initial;
   z-index: 109;
+}
+.sectionForHeader, .sectionForScroll {
+  display: flex;
+  justify-content: center;
 }
 .sectionHeader {
   display: flex;
@@ -688,12 +719,16 @@ header, section, footer {
   background: #fff;
   color: #956500;
 }
+.btn--dandelion {
+  background: #ffa607;
+  color: #fff;
+}
 .btn--burntOrange {
   background-color: #b72900;
   color: #fff;
 }
-.btn--burntOrangeNoImage {
-  background-color: #b72900;
+.btn--brown {
+  background-color: #b74700;
   background-image: none;
   color: #fff;
 }
@@ -706,6 +741,14 @@ header, section, footer {
 }
 .btn--cta:hover {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.main > * {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease-in-out;
+}
+.main--active > * {
+  opacity: 1 !important;
 }
 
 .mainBG {
@@ -787,6 +830,7 @@ header, section, footer {
   }
   .navSectionContainer {
     display: none;
+    transition: left 0.3s ease-in-out;
   }
   .navSection__toggler {
     display: block;
@@ -1068,12 +1112,44 @@ header, section, footer {
     min-width: 100%;
   }
 }
+@media (max-width: 1919px) {
+  .navScroll__container {
+    padding: 20px;
+    padding-top: 60px;
+    width: 100vw;
+    min-height: 100vh;
+    max-width: 400px;
+    background: #fff;
+    display: block !important;
+    position: fixed;
+    margin: 0;
+    top: 0;
+    left: -400px;
+    opacity: 0;
+    transition: left 0.3s ease-in-out;
+  }
+  .navScroll__container .nav__link {
+    color: #ae400a !important;
+    text-align: left;
+    display: block;
+    padding: 15px 0;
+  }
+  .navScroll__container .school__logo {
+    display: block;
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: cover;
+    margin: 0;
+  }
+}
 @media (min-width: 1920px) {
   .navScroll__toggler {
     display: none !important;
   }
   .navScroll__container {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 
   .section {
@@ -1085,8 +1161,20 @@ header, section, footer {
     max-width: 1920px;
     min-height: 500px;
   }
+  .sectionForScroll {
+    max-height: 85px !important;
+    height: 85px !important;
+    align-content: center;
+    align-items: center;
+  }
   .sectionForScroll .navScroll__toggler {
     display: none !important;
+  }
+  .sectionForScroll .school__logo {
+    height: 75px;
+    width: 75px;
+    margin: 0 10px;
+    background-position: center;
   }
 
   .school__logo {

@@ -60,6 +60,23 @@ $navHeight--forScroll: 50px;
         &__buttons {
             display: none;
         }
+        &Container {
+            .school {
+                &__logo {
+                    min-width: 0px;
+                    min-height: 0px;
+                    height: 75px;
+                    margin: -30px 0;
+                    width: 0px;
+                    background-position: -75px center;
+
+                    &--show {
+                        background-position: center center;
+                        width: 75px;
+                    }
+                }
+            }
+        }
     }
 
     &--forHeader {
@@ -79,7 +96,7 @@ $navHeight--forScroll: 50px;
     &--forTabs {
         width: 90vw;
         margin: 0 auto;
-        padding: $navHeight--forScroll + 35px 0 $navHeight--forScroll - 30px 0;
+        padding: $navHeight--forScroll + 65px 0 $navHeight--forScroll - 30px 0;
         text-align: center;
     }
 
@@ -110,10 +127,26 @@ $navHeight--forScroll: 50px;
         &__toggler {
             height: 36px;
             width: 36px;
-            background: yellow;
+            color: rgba(0,0,0,0.8);
+            text-align: center;
+            line-height: 36px;
+            font-size: 20px;
+            position: relative;
+            z-index: 10001;
         }
         &__container {
             display: none;
+
+            .school {
+                &__logo {
+                    display: inline-block;
+                    min-width: 0px;
+                    min-height: 0px;
+                    width: 75px;
+                    height: 75px;
+                    margin: -50px 0;
+                }
+            }
         }
 
         & &__buttons {
@@ -192,8 +225,10 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         height: 100%;
         max-height: $navHeight--forScroll;
         position: fixed;
+        opacity: 0;
         top: 0;
         z-index: 110;
+        transition: all 0.1s ease-in-out;
 
         & .navScroll__toggler {
             display: block !important;
@@ -203,6 +238,11 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     &ForHeader {
         min-height: initial;
         z-index: 109;
+    }
+
+    &ForHeader, &ForScroll {
+        display: flex;
+        justify-content: center;
     }
 
     &Header {
@@ -815,13 +855,18 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         color: #956500;
     }
 
+    &--dandelion {
+        background:#ffa607;
+        color: #fff;
+    }
+
     &--burntOrange {
         background-color: #b72900;
         color: #fff;
     }
 
-    &--burntOrangeNoImage {
-        background-color: #b72900;
+    &--brown {
+        background-color: #b74700;
         background-image: none;
         color: #fff;
     }
@@ -835,6 +880,19 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
         &:hover {
             text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+    }
+}
+
+.main {
+    > * {
+        opacity: 0 !important;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    &--active  {
+        > * {
+            opacity: 1 !important;
         }
     }
 }
@@ -931,6 +989,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
             &Container {
                 display: none;
+                transition: left 0.3s ease-in-out;
             }
 
             &__toggler {
@@ -1306,8 +1365,44 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             min-width: 100%;
         }
     }
+}
 
+@media (max-width: $breakpoint__width--Large - 1px)  {
+    .nav {
+        &Scroll {
+            &__container {
+                padding: 20px;
+                padding-top: 60px;
+                width: 100vw;
+                min-height: 100vh;
+                max-width: 400px;
+                background: #fff;
+                display: block !important;
+                position: fixed;
+                margin: 0;
+                top: 0;
+                left: -400px;
+                opacity: 0;
 
+                transition: left 0.3s ease-in-out;
+                & .nav__link {
+                    color: #ae400a !important;
+                    text-align: left;
+                    display: block;
+                    padding: 15px 0;
+                }
+
+                .school__logo {
+                    display: block;
+                    height: 100px;
+                    width: 100px;
+                    background-position: center;
+                    background-size: cover;
+                    margin: 0;
+                }
+            }
+        }
+    }
 }
 
 
@@ -1318,7 +1413,8 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
                 display: none !important;
             }
             &__container {
-                display: block;
+                display: flex;
+                align-items: center;
             }
         }
     }
@@ -1335,8 +1431,20 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         }
 
         &ForScroll {
+            max-height: 85px !important;
+            height: 85px !important;
+            align-content: center;
+            align-items: center;
+
             & .navScroll__toggler {
                 display: none !important;
+            }
+
+            .school__logo {
+                height: 75px;
+                width: 75px;
+                margin: 0 10px;
+                background-position: center;
             }
         }
     }
@@ -1350,10 +1458,6 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
 @media (max-width: $breakpoint__width--SmallUnfortunate) {
     .nav {
-        &--forTabs {
-
-        }
-
         &__link {
             &--forTabs {
                 font-size: 13px;

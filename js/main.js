@@ -18,7 +18,9 @@ const app = {
             }
         }
     },
-    data: {},
+    data: {
+        monthsShort: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    },
     name: 'Divine Light Academy',
     init: function(){
         app.nav['main'] =  document.querySelector('#navSection');
@@ -85,7 +87,7 @@ const app = {
 
         //For Spreadsheet fetching
         app.ajax.requestForJSON({
-            url: "https://sheets.googleapis.com/v4/spreadsheets/1aSK7EtWE5BG0nTK6BtqyXKsC29ZgEFEdyVljh4kXdkA/values:batchGet?ranges=Academics!A:B&ranges=Sports!A:B&ranges=Co-curricular!A:B&ranges=News!A:D&ranges=PageDetails!A:B&key=AIzaSyB5rPWvvLISKtPT7KH4kFecFAjL3ZGUYVs"}, {
+            url: "https://sheets.googleapis.com/v4/spreadsheets/1aSK7EtWE5BG0nTK6BtqyXKsC29ZgEFEdyVljh4kXdkA/values:batchGet?ranges=Academics!A:B&ranges=Sports!A:B&ranges=Co-curricular!A:B&ranges=News!A2:E6&ranges=PageDetails!A2:B1000&key=AIzaSyB5rPWvvLISKtPT7KH4kFecFAjL3ZGUYVs"}, {
             success: app.handler.spreadsheet.success,
             fail: app.handler.spreadsheet.fail,
         });
@@ -125,6 +127,47 @@ const app = {
                         dObject.innerHTML = string;
                     }
                 });
+
+                //For Page Details
+                let pageData = app.data.pageDetails;
+                for(i=0;i<pageData.length;i++) {
+                    if(dObject = document.querySelector(`#${pageData[i][0]}`))
+                    {
+                        dObject.innerHTML = pageData[i][1]
+                    }
+                }
+
+                //For News 
+                let newsData = app.data.news;
+                let newsStr = '';
+                for(i=0;i<newsData.length;i++) {
+                    if(newsData[i][0]!='') {
+                        let newsDate = new Date(newsData[i][0]);
+                        let newsSource = newsData[i][1];
+                        let newsCampus = newsData[i][2];
+                        let newsTitle = newsData[i][3];
+                        let newsLink = newsData[i][4]!='' ? newsData[i][4] : '#';
+
+                        newsStr += `
+                        <div class="news__item">
+                            <div class="news__itemDateContainer">
+                                <div class="news__itemDateMonth">${app.data.monthsShort[newsDate.getMonth()]}</div>
+                                <div class="news__itemDateDay">${newsDate.getDate()}</div>
+                                <div class="news__itemDateYear">${newsDate.getFullYear()}</div>
+                            </div>
+                            <div class="news__itemTitle">
+                                    <a href="${newsLink}">${newsTitle}</a>
+                                <div class="news__itemCategories">
+                                    ${newsCampus ? `<div class="news__itemCategory">${newsCampus}</div>` : ''}
+                                    ${newsSource ? `<div class="news__itemCategory">${newsSource}</div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        `;
+
+                    }
+                }
+                document.querySelector(`#newsContainer`).innerHTML = newsStr;
             },
             fail: function(res) {
                 console.log("Failed to fetch spreadsheet:", res);

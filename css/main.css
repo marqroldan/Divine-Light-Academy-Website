@@ -491,6 +491,12 @@ header, section, footer {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
+.schedule__campusTitle {
+  font-weight: 700;
+  font-size: 30px;
+  text-transform: uppercase;
+  padding-bottom: 21px;
+}
 
 .contact__map, .contact__info {
   min-height: 500px;
@@ -594,6 +600,10 @@ header, section, footer {
   font-weight: 500;
   padding: 10px;
   border-left: 1px solid rgba(0, 0, 0, 0.13);
+}
+.news__itemTitle a {
+  color: #6c3303;
+  text-decoration: none;
 }
 .news__itemCategory {
   display: inline-block;

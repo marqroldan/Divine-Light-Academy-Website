@@ -585,6 +585,13 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
     }
+
+    &__campusTitle {
+        font-weight: $font-weight--Bold;	
+        font-size: 30px;	
+        text-transform: uppercase;	
+        padding-bottom: 21px;
+    }
 }
 
 .contact {
@@ -705,10 +712,11 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             font-weight: $font-weight--Medium;
             padding: 10px;
             border-left: 1px solid rgba(0,0,0,0.13);
-        }
 
-        &Categories {
-
+            a {
+                color: #6c3303;
+                text-decoration: none;
+            }
         }
 
         &Category {

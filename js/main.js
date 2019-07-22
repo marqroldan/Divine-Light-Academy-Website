@@ -1,4 +1,24 @@
 const app = {
+    ajax: {
+        requestForJSON: function(settings={}, callback={}) {
+            if(settings.url) {
+                settings.type = settings.type ? settings.type : "GET"
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function(res) {
+                    if (xhttp.readyState === XMLHttpRequest.DONE) {
+                        if (xhttp.status === 200) {
+                            if (callback.success) callback.success(xhttp.responseText);
+                        } else {
+                            if (callback.fail) callback.fail(xhttp.responseText);
+                        }
+                    }
+                }
+                xhttp.open(settings.type, settings.url, true);
+                xhttp.send();
+            }
+        }
+    },
+    data: {},
     name: 'Divine Light Academy',
     init: function(){
         app.nav['main'] =  document.querySelector('#navSection');
@@ -63,51 +83,51 @@ const app = {
             });
         });
 
-        
-
-
-
+        //For Spreadsheet fetching
+        app.ajax.requestForJSON({
+            url: "https://sheets.googleapis.com/v4/spreadsheets/1aSK7EtWE5BG0nTK6BtqyXKsC29ZgEFEdyVljh4kXdkA/values:batchGet?ranges=Academics!A:B&ranges=Sports!A:B&ranges=Co-curricular!A:B&ranges=News!A:D&ranges=PageDetails!A:B&key=AIzaSyB5rPWvvLISKtPT7KH4kFecFAjL3ZGUYVs"}, {
+            success: app.handler.spreadsheet.success,
+            fail: app.handler.spreadsheet.fail,
+        });
     },
-    slider: {
-        _state: {
-            click: (new Date()).getTime(),
-        },
-        groups: [],
-        itemClick: function() {
-
-        },
-        navigationClick: function() {
-            if((new Date()).getTime() - app.slider._state.click >= 500) {
-                app.slider._state.click = (new Date()).getTime();
-                try {
-                    parentContainer = this.parentNode.id.replace('Navigation','');
-                }
-                catch (e) {}
-                finally {
-                    if (parentContainer=='') {
-                        parentContainer = this.parentNode.parentNode.getAttribute('class');
-                    }
-                }
-                    targetItem = document.querySelector(`.${parentContainer}Item[sliderId=${this.getAttribute('sliderId')}]`);
-                    activeItem = document.querySelector(`.${parentContainer}Item--active`);
-                    mover = document.querySelector(`.${parentContainer} .sliderMover`);
-                    parentNode = document.querySelector(`.${parentContainer}`);
-    
-                    activeNavItemClass = `${parentContainer}NavigationItem--active`;
-                    activeNavItem = document.querySelector(`.${activeNavItemClass}`);
-                    activeNavItem.classList.remove(activeNavItemClass)
-                    document.querySelector(`.${parentContainer}NavigationItem[sliderId=${this.getAttribute('sliderId')}]`).classList.add(activeNavItemClass);
-    
-                    activeItem.classList.remove(`${parentContainer}Item--active`);
-                    targetItem.classList.add(`${parentContainer}Item--active`);
-                    marginLeft = parentNode.offsetLeft - targetItem.offsetLeft;
-                    if(mover.style.marginLeft!='') {
-                        marginLeft = Number(mover.style.marginLeft.replace('px',''));
-                        if(parentNode.offsetLeft != targetItem.offsetLeft) {
-                            marginLeft += parentNode.offsetLeft - targetItem.offsetLeft;
+    handler: {
+        spreadsheet: {
+            success: function(res) {
+                let data = JSON.parse(res);
+                app.data.achievements = {};
+                app.data.achievements.academics = data.valueRanges[0].values;
+                app.data.achievements.sports = data.valueRanges[1].values;
+                app.data.achievements.coCurricular = data.valueRanges[2].values;
+                app.data.news = data.valueRanges[3].values;
+                app.data.pageDetails = data.valueRanges[4].values;
+                
+                //For achievements page
+                Object.keys(app.data.achievements).forEach(function(key) {
+                    let data = app.data.achievements[key];
+                    //Get the keys
+                    let keys = data[0];
+                    data[0] = null;
+                    data = data.reverse().filter(Boolean);
+                    let string = '';
+                    for(i=0;i<data.length;i++) {
+                        for(j=0;j<keys.length;j++) {
+                            if(data[i][j]) {
+                                string += `
+                                <div class="${keys[j]}">
+                                ${data[i][j]}
+                                </div>
+                                `;
+                            }
                         }
                     }
-                    mover.style.marginLeft = `${marginLeft}px`;
+                    if(dObject = document.querySelector(`#${key}`))
+                    {
+                        dObject.innerHTML = string;
+                    }
+                });
+            },
+            fail: function(res) {
+                console.log("Failed to fetch spreadsheet:", res);
             }
         }
     },
@@ -352,6 +372,49 @@ const app = {
                 document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
             }
         },
+    },
+    slider: {
+        _state: {
+            click: (new Date()).getTime(),
+        },
+        groups: [],
+        itemClick: function() {
+
+        },
+        navigationClick: function() {
+            if((new Date()).getTime() - app.slider._state.click >= 500) {
+                app.slider._state.click = (new Date()).getTime();
+                try {
+                    parentContainer = this.parentNode.id.replace('Navigation','');
+                }
+                catch (e) {}
+                finally {
+                    if (parentContainer=='') {
+                        parentContainer = this.parentNode.parentNode.getAttribute('class');
+                    }
+                }
+                    targetItem = document.querySelector(`.${parentContainer}Item[sliderId=${this.getAttribute('sliderId')}]`);
+                    activeItem = document.querySelector(`.${parentContainer}Item--active`);
+                    mover = document.querySelector(`.${parentContainer} .sliderMover`);
+                    parentNode = document.querySelector(`.${parentContainer}`);
+    
+                    activeNavItemClass = `${parentContainer}NavigationItem--active`;
+                    activeNavItem = document.querySelector(`.${activeNavItemClass}`);
+                    activeNavItem.classList.remove(activeNavItemClass)
+                    document.querySelector(`.${parentContainer}NavigationItem[sliderId=${this.getAttribute('sliderId')}]`).classList.add(activeNavItemClass);
+    
+                    activeItem.classList.remove(`${parentContainer}Item--active`);
+                    targetItem.classList.add(`${parentContainer}Item--active`);
+                    marginLeft = parentNode.offsetLeft - targetItem.offsetLeft;
+                    if(mover.style.marginLeft!='') {
+                        marginLeft = Number(mover.style.marginLeft.replace('px',''));
+                        if(parentNode.offsetLeft != targetItem.offsetLeft) {
+                            marginLeft += parentNode.offsetLeft - targetItem.offsetLeft;
+                        }
+                    }
+                    mover.style.marginLeft = `${marginLeft}px`;
+            }
+        }
     },
     tab: {
         change: function(elem) {

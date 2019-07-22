@@ -344,6 +344,17 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             line-height: 61.56px;
             text-transform: uppercase;
         }
+
+        &__author {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: $font-weight--Regular;
+            font-style: italic;
+            line-height: initial;
+            text-transform: initial;
+        }
+
         &__subHeading {
             font-size: 33px;
             text-transform: uppercase;
@@ -574,6 +585,15 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
 
         &Title {
             font-size: 18px;
+            font-weight: $font-weight--Medium;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        &Description {
+            font-size: 14px;
+            font-weight: $font-weight--Regular;
         }
     }
 
@@ -591,6 +611,11 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         font-size: 30px;	
         text-transform: uppercase;	
         padding-bottom: 21px;
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
     }
 }
 
@@ -802,6 +827,14 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         &Text {
             font-size: 14px;
         }
+    }
+}
+
+.history {
+    &Paragraph {
+        padding: 15px;
+        width: 100% !important;
+        margin-top: 20px;
     }
 }
 
@@ -1419,7 +1452,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             &Date {
                 display: inline;
                 max-width: none;
-                min-width: 250px;
+                min-width: 320px;
                 text-align: left;
                 padding: 5px 5px 5px 15px;
                 background: #fff;

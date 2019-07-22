@@ -287,6 +287,15 @@ header, section, footer {
   line-height: 61.56px;
   text-transform: uppercase;
 }
+.sectionContainer__author {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: initial;
+  text-transform: initial;
+}
 .sectionContainer__subHeading {
   font-size: 33px;
   text-transform: uppercase;
@@ -482,6 +491,14 @@ header, section, footer {
 }
 .schedule__itemTitle {
   font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.schedule__itemDescription {
+  font-size: 14px;
+  font-weight: 400;
 }
 .schedule__box {
   width: 100%;
@@ -496,6 +513,10 @@ header, section, footer {
   font-size: 30px;
   text-transform: uppercase;
   padding-bottom: 21px;
+}
+.schedule__campusTitle a {
+  color: #fff;
+  text-decoration: none;
 }
 
 .contact__map, .contact__info {
@@ -677,6 +698,12 @@ header, section, footer {
 }
 .header__quickAnnouncementsText {
   font-size: 14px;
+}
+
+.historyParagraph {
+  padding: 15px;
+  width: 100% !important;
+  margin-top: 20px;
 }
 
 .school {
@@ -1166,7 +1193,7 @@ header, section, footer {
   .schedule__itemDate {
     display: inline;
     max-width: none;
-    min-width: 250px;
+    min-width: 320px;
     text-align: left;
     padding: 5px 5px 5px 15px;
     background: #fff;

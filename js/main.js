@@ -4,12 +4,13 @@ const app = {
             if(settings.url) {
                 settings.type = settings.type ? settings.type : "GET"
                 let xhttp = new XMLHttpRequest();
+                callback.params = callback.params ? callback.params : null;
                 xhttp.onreadystatechange = function(res) {
                     if (xhttp.readyState === XMLHttpRequest.DONE) {
                         if (xhttp.status === 200) {
-                            if (callback.success) callback.success(xhttp.responseText);
+                            if (callback.success) callback.success(xhttp.responseText, callback.params);
                         } else {
-                            if (callback.fail) callback.fail(xhttp.responseText);
+                            if (callback.fail) callback.fail(xhttp.responseText, callback.params);
                         }
                     }
                 }
@@ -19,6 +20,7 @@ const app = {
         }
     },
     data: {
+        monthsLong: ["January","February","March","April","May","June","July","August","September","October","November","December"],
         monthsShort: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
     },
     name: 'Divine Light Academy',
@@ -91,8 +93,87 @@ const app = {
             success: app.handler.spreadsheet.success,
             fail: app.handler.spreadsheet.fail,
         });
+        
+
+        /** Calendar Fetching */
+        //For Las Pinas
+        app.ajax.requestForJSON({
+            url: `https://www.googleapis.com/calendar/v3/calendars/1rmvnso7qdn0tklrp7kvmoh834@group.calendar.google.com/events?key=AIzaSyCZ57_IgKZ1ME6E_3WgQML1udeiMYuvsSo&timeMin=${(new Date()).toISOString()}`}, {
+            params: {
+                targetId: "lasPinasSchedule",
+            },
+            success: app.handler.calendar.success,
+            fail: app.handler.calendar.success,
+        });
+
+        //For Bacoor
+        app.ajax.requestForJSON({
+            url: `https://www.googleapis.com/calendar/v3/calendars/ttjp328t9en76ijcstcu6hpe0c@group.calendar.google.com/events?key=AIzaSyCZ57_IgKZ1ME6E_3WgQML1udeiMYuvsSo&timeMin=${(new Date()).toISOString()}`}, {
+            params: {
+                targetId: "bacoorSchedule",
+            },
+            success: app.handler.calendar.success,
+            fail: app.handler.calendar.success,
+        });
     },
     handler: {
+        calendar: {
+            success: function(res, params) {
+                let targetContainer = document.querySelector(`#${params.targetId}`);
+                if(targetContainer) {
+                    let data = JSON.parse(res);
+                    let calString = '';
+                    data.items.forEach(function(item) {
+                        let itemStartDate = item.start.date ? new Date(item.start.date) : new Date(item.start.dateTime);
+                        let itemEndDate = item.end.date ? new Date(item.end.date) : new Date(item.end.dateTime);
+                        let itemDate = `${app.data.monthsLong[itemStartDate.getMonth()]} ${itemStartDate.getDate()}, ${itemStartDate.getFullYear()}`
+                        let itemTime = '';
+                        if(item.start.dateTime) {
+                            itemTime = `${itemStartDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})} - ${itemEndDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}`;
+                        }
+                        
+                        //If it doesn't have any time, end date must be subtracted
+                        if(item.start.date) itemEndDate.setDate(itemEndDate.getDate() - 1);
+
+                        //If not same date
+                        if(itemStartDate != itemEndDate) {
+                            //If not same year
+                            if(itemStartDate.getFullYear() != itemEndDate.getFullYear()) {
+                                itemDate = `${app.data.monthsShort[itemStartDate.getMonth()]} ${itemStartDate.getDate()}, ${itemStartDate.getFullYear()} - ${app.data.monthsShort[itemEndDate.getMonth()]} ${itemEndDate.getDate()}, ${itemEndDate.getFullYear()}`
+                            }
+                            else {
+                                //If not same month
+                                if(itemStartDate.getMonth() != itemEndDate.getMonth()) {
+                                    itemDate = `${app.data.monthsShort[itemStartDate.getMonth()]} ${itemStartDate.getDate()} - ${app.data.monthsShort[itemEndDate.getMonth()]} ${itemEndDate.getDate()}, ${itemEndDate.getFullYear()}`
+                                }
+                                else {
+                                    //If not same day
+                                    if(itemStartDate.getDate() != itemEndDate.getDate()) {
+                                        itemDate = `${app.data.monthsShort[itemStartDate.getMonth()]} ${itemStartDate.getDate()} - ${itemEndDate.getDate()}, ${itemEndDate.getFullYear()}`
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            itemDate = `${app.data.monthsLong[itemStartDate.getMonth()]} ${itemStartDate.getDate()}, ${itemStartDate.getFullYear()}`
+                        }
+
+                        calString += `<div class="schedule__item">
+                                          <div class="schedule__itemDate">${itemDate}<div class="schedule__itemTime">${itemTime}</div></div>
+                                          <div class="schedule__itemTitle">${item.summary}${item.description ? `<div class="schedule__itemDescription">${item.description}</div>` : '' }</div>
+                                      </div>`
+                    });
+                    targetContainer.innerHTML = calString;
+                }
+                else {
+                    console.log("Unable to find the target container");
+                    return ;
+                }
+            },
+            fail: function(res, params) {
+                console.log("Failed to fetch calendar data: ", res, "Parameters: ", params);
+            }
+        },
         spreadsheet: {
             success: function(res) {
                 let data = JSON.parse(res);
@@ -164,7 +245,6 @@ const app = {
                             </div>
                         </div>
                         `;
-
                     }
                 }
                 document.querySelector(`#newsContainer`).innerHTML = newsStr;

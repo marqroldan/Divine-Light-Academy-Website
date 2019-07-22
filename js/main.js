@@ -115,6 +115,11 @@ const app = {
             success: app.handler.calendar.success,
             fail: app.handler.calendar.success,
         });
+
+        //For Map handling
+        document.querySelectorAll('*[mapChange]').forEach(function(item) {
+            item.addEventListener('click', app.map.clickChange);
+        })
     },
     handler: {
         calendar: {
@@ -290,6 +295,27 @@ const app = {
             }
             current.addEventListener('transitionend', transitionRemove);
             logo.classList.remove('school__logo--show');
+        }
+    },
+    map: {
+        clickChange: function(e) {
+            e.preventDefault();
+            activeClass = 'contact__mapItem--active';
+            activeMap = document.querySelector(`.${activeClass}`);
+            targetMap = document.querySelector(`#${this.getAttribute('mapChange')}`);
+            if(activeMap!=targetMap) {
+                function removeOpacity() {
+                    activeMap.style = '';
+                    targetMap.style.display = "block";
+                    setTimeout(function() {
+                        targetMap.classList.add(activeClass);
+                    }, 50);
+                    
+                    activeMap.removeEventListener('transitionend', removeOpacity);
+                }
+                activeMap.addEventListener('transitionend',removeOpacity);
+                activeMap.classList.remove(activeClass);
+            }
         }
     },
     nav: {

@@ -276,7 +276,7 @@
                 <article class="sectionContainer scheduleContainer">
                         <div class="sectionContainer__left scheduleContainer__left sectionContainer__left--alignLeft">
                             <div class="schedule__campusTitle">
-                                    <a href="https://calendar.google.com/calendar?cid=MXJtdm5zbzdxZG4wdGtscnA3a3Ztb2g4MzRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">Las Piñas</a>
+                                    <a href="https://calendar.google.com/calendar?cid=MXJtdm5zbzdxZG4wdGtscnA3a3Ztb2g4MzRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" target="_blank">Las Piñas</a>
                             </div>
                             <div class="boxContainer schedule__box">
                                     <div class="schedule__dateBackground"></div>
@@ -290,7 +290,7 @@
                         </div>
                         <div class="sectionContainer__right scheduleContainer__right">
                                 <div class="schedule__campusTitle">
-                                        <a href="https://calendar.google.com/calendar?cid=dHRqcDMyOHQ5ZW43NmlqY3N0Y3U2aHBlMGNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">Bacoor</a>
+                                        <a href="https://calendar.google.com/calendar?cid=dHRqcDMyOHQ5ZW43NmlqY3N0Y3U2aHBlMGNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" target="_blank">Bacoor</a>
                                 </div>
                                 <div class="boxContainer schedule__box">
                                     <div class="schedule__dateBackground"></div>
@@ -309,20 +309,22 @@
                 <div class="sectionHeader sectionHeader--alignRight">
                     <div class="sectionContainer__subHeading">Get in touch</div>
                     <div class="sectionContainer__heading">Contact Us</div>
+                    <br/>
+                    Click on the name or address to change the map. You may also copy the link of the address.
                 </div>
                 <article class="sectionContainer contactContainer">
                         <div class="sectionContainer__left sectionContainer__left--alignTop contactContainer__left contact__mapContainer">
-                                <article class="boxContainer contact__map">
+                                <article class="boxContainer contact__map"><iframe id="mapLasPinas"  class="contact__mapItem contact__mapItem--active" style="display: block" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1931.7680457765684!2d120.97464736282674!3d14.453878082645703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cdf061e89531%3A0x98cd8e2afcca8a34!2sDivine+Light+Academy!5e0!3m2!1sen!2sph!4v1563784279239!5m2!1sen!2sph?key=AIzaSyAzEOgvumi89igsRnYMz-zMIKCaiotEnd4" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe><iframe id="mapBacoor" class="contact__mapItem" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3864.526767652601!2d120.97918631535069!3d14.396770185897655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d23953695069%3A0xca11d4cfc93d55c7!2sDivine+Light+Academy!5e0!3m2!1sen!2sph!4v1563785052264!5m2!1sen!2sph" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
                                 </article>
                         </div>
                         <div class="sectionContainer__right sectionContainer__right--alignTop contactContainer__right">
                             <article class="boxContainer contact__info">
                                 <div class="contact__infoItem">
-                                    <div class="contact__infoName">
+                                    <div class="contact__infoName"  mapChange="mapLasPinas">
                                         LAS PIÑAS
                                     </div>
                                     dla_laspinas@yahoo.com<br><br>
-                                    7 Rosal Street Doña Manuela Subdivision<br>Las Piñas City 1740 Philippines
+                                    <a href="https://goo.gl/maps/WAcGJq5bsvShzm847" mapChange="mapLasPinas">7 Rosal Street Doña Manuela Subdivision<br>Las Piñas City 1740 Philippines</a>
                                     <div class="flex">
                                         <div class="flex--flexGrow-1">
                                             <div class="contact__infoName contact__infoName--groupNamePadding contact__infoName--Smaller">
@@ -340,11 +342,11 @@
                                     </div>
                                 </div>
                                 <div class="contact__infoItem">
-                                    <div class="contact__infoName">
+                                    <div class="contact__infoName" mapChange="mapBacoor">
                                         Bacoor
                                     </div>
                                     dlacavite@yahoo.com<br><br>
-                                    Alicante St. Town and Country West Molino 3<br>Bacoor City Cavite 4102 Philippines
+                                    <a href="https://goo.gl/maps/2ge7bTmHKYLqn3Mg7" mapChange="mapBacoor">Alicante St. Town and Country West Molino 3<br>Bacoor City Cavite 4102 Philippines</a>
                                     <div class="flex">
                                         <div class="flex--flexGrow-1">
                                             <div class="contact__infoName contact__infoName--groupNamePadding contact__infoName--Smaller">
@@ -511,22 +513,20 @@
             <article class="sectionContainer">
                 <div class="sectionContainer__single">
                     <div id="_academics" class="scrollSpacer"></div>
-                    <div class="sectionTitle">Academics</div>
-                    <a href="#achievements" class="nav__link">Back to Top</a>
+                    <div class="sectionTitle">Academics<a href="#achievements" class="nav__link nav__link--achievements_backToTop">Back to Top</a></div>
+                    
                     <div id="academics" class="boxContainer admissionsDetails">
                     If you're seeing this, the data is either loading or failed to load. Try refreshing.
                     </div>
 
                     <div id="_sports" class="scrollSpacer"></div>
-                    <div class="sectionTitle">Sports</div>
-                    <a href="#achievements" class="nav__link">Back to Top</a>
+                    <div class="sectionTitle">Sports<a href="#achievements" class="nav__link nav__link--achievements_backToTop">Back to Top</a></div>
                     <div id="sports" class="boxContainer admissionsDetails">
                     If you're seeing this, the data is either loading or failed to load. Try refreshing.
                     </div>
 
                     <div id="_coCurricular" class="scrollSpacer"></div>
-                    <div class="sectionTitle">Co-curricular</div>
-                    <a href="#achievements" class="nav__link">Back to Top</a>
+                    <div class="sectionTitle">Co-curricular<a href="#achievements" class="nav__link nav__link--achievements_backToTop">Back to Top</a></div>
                     <div id="coCurricular" class="boxContainer admissionsDetails">
                     If you're seeing this, the data is either loading or failed to load. Try refreshing.
                     </div>

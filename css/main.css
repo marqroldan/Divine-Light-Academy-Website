@@ -170,6 +170,9 @@ header, section, footer {
 .nav__link--forFooter:hover {
   opacity: 1;
 }
+.nav__link--achievements_backToTop {
+  display: block;
+}
 
 .boxContainer {
   background-color: rgba(0, 0, 0, 0.1);
@@ -523,6 +526,7 @@ header, section, footer {
   min-height: 500px;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .contact__info {
   padding: 20px;
@@ -544,6 +548,10 @@ header, section, footer {
   margin-bottom: 30px;
   overflow-wrap: break-word;
 }
+.contact__infoItem a {
+  color: #fff;
+  text-decoration: none;
+}
 .contactContainer {
   justify-content: flex-end;
 }
@@ -558,6 +566,14 @@ header, section, footer {
   flex: 1 !important;
   width: 100%;
   max-width: initial !important;
+}
+.contact__mapItem {
+  opacity: 0;
+  display: none;
+  transition: opacity 0.3s ease-in-out;
+}
+.contact__mapItem--active {
+  opacity: 1;
 }
 
 .flex {

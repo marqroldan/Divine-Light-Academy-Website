@@ -660,6 +660,7 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
         max-width: $contact__infoWidth;
 
         &Name {
+            cursor: pointer;
             font-weight: $font-weight--Bold;
             font-size: 33px;
             text-transform: uppercase;

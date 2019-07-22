@@ -555,6 +555,7 @@ header, section, footer {
   max-width: 550px;
 }
 .contact__infoName {
+  cursor: pointer;
   font-weight: 700;
   font-size: 33px;
   text-transform: uppercase;

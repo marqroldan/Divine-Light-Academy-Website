@@ -364,6 +364,27 @@ header, section, footer {
   flex-wrap: nowrap;
   transition: all 0.3s ease-in-out;
 }
+.infoContainer__image {
+  width: 100% !important;
+  height: 100%;
+  opacity: 1 !important;
+  cursor: initial !important;
+  margin: auto;
+}
+.infoContainer__imageItem {
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  margin: 3px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+}
+.infoContainer__imageItem--vision {
+  background-image: url("../images/vision.jpg");
+}
+.infoContainer__imageItem--mission {
+  background-image: url("../images/mission.jpg");
+}
 .infoContainer__programs {
   min-width: 100%;
   overflow: hidden;
@@ -787,6 +808,17 @@ header, section, footer {
   margin-top: 6px;
 }
 
+.campusContainer {
+  display: flex;
+}
+.campus__box {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 15px;
+  margin: auto;
+}
+
 .scrollSpacer {
   height: 80px;
   margin-top: -120px;
@@ -985,6 +1017,16 @@ header, section, footer {
     display: block;
   }
 
+  .campusContainer {
+    flex-direction: column;
+  }
+  .campusContainer .sectionContainer__left--13, .campusContainer .sectionContainer__right--13 {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: initial;
+    min-height: initial;
+  }
+
   .newsContainer {
     min-height: 0%;
     height: auto;
@@ -1008,10 +1050,40 @@ header, section, footer {
     flex-direction: column;
   }
   .infoContainer__left, .infoContainer__right {
+    min-height: 0;
     width: initial;
     max-width: initial;
     align-items: center;
     text-align: center;
+  }
+
+  .contactContainer {
+    flex-direction: column;
+  }
+  .contactContainer__left, .contactContainer__right {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    min-height: 0%;
+  }
+  .contactContainer__left {
+    padding: 0;
+  }
+  .contact__info {
+    width: 100%;
+    max-width: 100%;
+  }
+  .contact__infoItem .flex {
+    flex-direction: column;
+  }
+  .contact__map {
+    min-height: 0%;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+  .contact__mapContainer {
+    width: 100%;
+    height: 200px;
   }
 }
 @media (max-width: 800px) {
@@ -1212,8 +1284,8 @@ header, section, footer {
     min-width: 320px;
     text-align: left;
     padding: 5px 5px 5px 15px;
-    background: #fff;
-    color: rgba(0, 0, 0, 0.8);
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
@@ -1320,6 +1392,15 @@ header, section, footer {
   .school__logo {
     width: 80vw;
     height: 80vw;
+  }
+
+  .schedule__itemDate {
+    min-width: 100%;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .schedule__item:first-child .schedule__itemDate {
+    border-top-right-radius: 5px;
   }
 }
 

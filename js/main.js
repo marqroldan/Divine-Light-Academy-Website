@@ -124,7 +124,7 @@ const app = {
     handler: {
         calendar: {
             success: function(res, params) {
-                let targetContainer = document.querySelector(`#${params.targetId}`);
+                let targetContainer = document.querySelectorAll(`.${params.targetId}`);
                 if(targetContainer) {
                     let data = JSON.parse(res);
                     let calString = '';
@@ -168,7 +168,10 @@ const app = {
                                           <div class="schedule__itemTitle">${item.summary}${item.description ? `<div class="schedule__itemDescription">${item.description}</div>` : '' }</div>
                                       </div>`
                     });
-                    targetContainer.innerHTML = calString;
+
+                    targetContainer.forEach(function(target) {
+                        target.innerHTML = calString;
+                    });
                 }
                 else {
                     console.log("Unable to find the target container");
@@ -226,6 +229,10 @@ const app = {
                 //For News 
                 let newsData = app.data.news;
                 let newsStr = '';
+                let bacoorCampus = '', lasPinasCampus = '';
+                lasPinasCampusContainer = document.querySelector('#newsContainerLasPinas');
+                bacoorCampusContainer = document.querySelector('#newsContainerBacoor');
+
                 for(i=0;i<newsData.length;i++) {
                     if(newsData[i][0]!='') {
                         let newsDate = new Date(newsData[i][0]);
@@ -234,7 +241,7 @@ const app = {
                         let newsTitle = newsData[i][3];
                         let newsLink = newsData[i][4]!='' ? newsData[i][4] : '#';
 
-                        newsStr += `
+                        let tmp = `
                         <div class="news__item">
                             <div class="news__itemDateContainer">
                                 <div class="news__itemDateMonth">${app.data.monthsShort[newsDate.getMonth()]}</div>
@@ -250,9 +257,20 @@ const app = {
                             </div>
                         </div>
                         `;
+
+                        newsStr += tmp;
+                        if(newsCampus=="Las Piñas" && lasPinasCampusContainer) {
+                            lasPinasCampus += tmp;
+                        }
+                        if(newsCampus=="Bacoor" && bacoorCampusContainer) {
+                            bacoorCampus += tmp;
+                        }
                     }
                 }
                 document.querySelector(`#newsContainer`).innerHTML = newsStr;
+                if(lasPinasCampusContainer) lasPinasCampusContainer.innerHTML = lasPinasCampus;
+                if(bacoorCampusContainer) bacoorCampusContainer.innerHTML = bacoorCampus;
+
             },
             fail: function(res) {
                 console.log("Failed to fetch spreadsheet:", res);

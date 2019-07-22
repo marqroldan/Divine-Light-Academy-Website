@@ -120,7 +120,52 @@ const app = {
         document.querySelectorAll('*[mapChange]').forEach(function(item) {
             item.addEventListener('click', app.map.clickChange);
         })
+
+        //For background transitioning 
+        app.carousel.items = document.querySelectorAll('[carousel]');
+        app.carousel.run();
     },
+    carousel: {
+        activeItem: -1,
+        items: [],
+        run: function() {
+            function setActive(item) {
+                item.style.display = "block";
+                setTimeout(function() {
+                    item.classList.add('active')
+                    item.setAttribute('active','')
+                }, 150);
+            }
+    
+            if(app.carousel.activeItem == -1) {
+                hiddenDocument = document.querySelector('.hiddenNode');
+                app.carousel.items.forEach(function(item) {
+                    item.style.backgroundImage = `url("${item.getAttribute('data-background')}")`;
+                });
+                app.carousel.activeItem = 0;
+                setActive(app.carousel.items[0]);
+            }
+            else {
+                activeImage = app.carousel.items[app.carousel.activeItem]
+                nextItem = app.carousel.activeItem + 1;
+                app.carousel.activeItem = nextItem;
+                if(nextItem >= app.carousel.items.length) {
+                    app.carousel.activeItem = 0;
+                }
+                function hideElement() {
+                    activeImage.style.display = "none";
+                    activeImage.removeAttribute('active');
+                    setActive(app.carousel.items[app.carousel.activeItem]);
+                    activeImage.removeEventListener('transitionend',hideElement)
+                }
+    
+                activeImage.addEventListener('transitionend',hideElement)
+                activeImage.classList.remove('active')
+            }
+    
+            setTimeout(app.carousel.run, 7500)
+        },
+    }, 
     handler: {
         calendar: {
             success: function(res, params) {

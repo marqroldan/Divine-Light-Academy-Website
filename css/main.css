@@ -900,6 +900,11 @@ header, section, footer {
   padding-top: 50px;
 }
 
+.hiddenNode {
+  display: block;
+  opacity: 0;
+}
+
 .mainBG {
   -webkit-backface-visibility: hidden;
   position: fixed;
@@ -907,6 +912,9 @@ header, section, footer {
   top: 0;
   width: 100vw;
   z-index: 100;
+}
+.mainBG .active {
+  opacity: 0.3;
 }
 .mainBG__layer {
   background-position: center center;
@@ -926,12 +934,13 @@ header, section, footer {
   mix-blend-mode: overlay;
 }
 .mainBG__layer--image {
-  background-image: url("../images/1.jpg");
   background-size: cover;
+  opacity: 0;
   z-index: 98;
-  opacity: 0.3;
   mix-blend-mode: overlay;
   margin-bottom: -100vh;
+  transition: opacity 0.3s ease-in-out;
+  display: none;
 }
 .mainBG__layer--gradient {
   background-image: url("bg_gradient.jpg");

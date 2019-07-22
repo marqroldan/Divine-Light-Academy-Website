@@ -1062,6 +1062,11 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     }
 }
 
+.hiddenNode {
+    display: block;
+    opacity: 0;
+}
+
 .mainBG {
     -webkit-backface-visibility: hidden;
     position: fixed;
@@ -1069,6 +1074,10 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
     top: 0;
     width: 100vw;
     z-index: 100;
+
+    & .active {
+        opacity: 0.3;
+    }
 
     &__layer {
         background-position: center center;
@@ -1089,12 +1098,14 @@ $boxContainer--borderColor: rgba(255,255,255,0.75);
             mix-blend-mode: overlay;
         }
         &--image {
-            background-image: url('../images/1.jpg');
+            //background-image: url('../images/1.jpg');
             background-size: cover;
+            opacity: 0;
             z-index: 98;
-            opacity: 0.3;
             mix-blend-mode: overlay;
             margin-bottom: -100vh;
+            transition: opacity 0.3s ease-in-out;
+            display: none;
         }
 
         &--gradient {
